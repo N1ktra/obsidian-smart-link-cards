@@ -4,8 +4,8 @@
    ========================================================================== */
 
 body {
-	--slc-card-height: 56px;
-	--slc-card-gap: 4px;
+	--slc-card-height: 68px;
+	--slc-card-gap: 5px;
 	--slc-card-radius: var(--radius-m, 8px);
 	--slc-pill-radius: 9999px;
 }
@@ -20,11 +20,11 @@ body {
 	align-items: center;
 	gap: 12px;
 	box-sizing: border-box;
-	width: 100%;
+	width: min(520px, 100%);
 	max-width: 100%;
 	height: var(--slc-card-height);
 	margin: var(--slc-card-gap) 0;
-	padding: 0 14px 0 12px;
+	padding: 8px 14px 8px 12px;
 	overflow: hidden;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--slc-card-radius);
@@ -89,7 +89,6 @@ body {
 }
 
 .slc-card-title,
-.slc-card-desc,
 .slc-card-host {
 	overflow: hidden;
 	white-space: nowrap;
@@ -97,21 +96,30 @@ body {
 }
 
 .slc-card-title {
-	font-size: var(--font-ui-medium, 15px);
+	font-size: var(--font-ui-medium, 14px);
 	font-weight: var(--font-semibold, 600);
 	color: var(--text-normal);
+	line-height: 1.25;
 }
 
 .slc-card-desc {
-	font-size: var(--font-ui-small, 13px);
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	white-space: normal;
+	line-height: 1.3;
+	font-size: var(--font-ui-small, 12.5px);
 	color: var(--text-muted);
+	word-break: break-word;
 }
 
 .slc-card-host {
-	flex: 0 1 auto;
-	max-width: 30%;
+	flex: 0 0 auto;
+	max-width: 120px;
 	font-size: var(--font-ui-smaller, 12px);
 	color: var(--text-faint);
+	text-align: right;
 }
 
 .slc-card.slc-loading .slc-card-desc {
@@ -181,7 +189,9 @@ body {
    -------------------------------------------------------------------------- */
 
 .slc-pill {
-	display: inline;
+	display: inline-flex;
+	align-items: center;
+	vertical-align: baseline;
 	padding: 1px 8px 2px 6px;
 	border: 1px solid transparent;
 	border-radius: var(--slc-pill-radius);
@@ -210,6 +220,19 @@ body {
 
 .slc-pill:hover .slc-pill-text {
 	text-decoration: underline;
+}
+
+.slc-pill-desc {
+	margin-left: 6px;
+	font-size: 0.9em;
+	color: var(--text-muted);
+	opacity: 0.85;
+	text-decoration: none !important;
+}
+
+.slc-pill-desc-manual {
+	color: var(--text-faint, var(--text-muted));
+	opacity: 0.8;
 }
 
 .slc-pill-icon {

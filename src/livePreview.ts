@@ -27,7 +27,7 @@ export const refreshDecorationsEffect = StateEffect.define<null>();
 const SKIPPED_NODE = /codeblock|inline-code|frontmatter|math|comment|hmd-html|templater/i;
 
 /** Rough card height used by CodeMirror for height estimation. */
-const CARD_HEIGHT_ESTIMATE = 64;
+const CARD_HEIGHT_ESTIMATE = 78;
 
 const blockLineDecoration = Decoration.line({ class: "slc-block-line" });
 /** Line with a visible card: lets CSS hide Obsidian's leftover link decorations (e.g. the external-link icon). */

@@ -16,6 +16,8 @@ export interface DisplayData {
 	url: string;
 	title: string;
 	description?: string;
+	/** Whether the description was provided manually via markdown link title. */
+	isManualDescription: boolean;
 	hostname: string;
 	/** Emoji/text icon (manual override) – takes precedence over images. */
 	emoji?: string;
@@ -39,7 +41,8 @@ export function needsMetadata(link: LinkDescriptor, mode: DisplayMode, settings:
 		return !overrides.title || !overrides.description || needsSiteIcon;
 	}
 	const wantsTitle = !overrides.title && link.syntax !== "markdown" && settings.showTitleForBareInlineUrls;
-	return wantsTitle || needsSiteIcon;
+	const wantsDesc = !overrides.description && settings.showDescriptionInInlinePills;
+	return wantsTitle || wantsDesc || needsSiteIcon;
 }
 
 export function resolveDisplay(
@@ -66,10 +69,14 @@ export function resolveDisplay(
 	if (overrides.icon?.type === "emoji") emoji = overrides.icon.value;
 	else if (overrides.icon?.type === "url") candidates.unshift(overrides.icon.value);
 
+	const isManualDescription = overrides.description !== undefined;
+	const description = overrides.description ?? metadata?.description;
+
 	return {
 		url,
 		title,
-		description: overrides.description ?? metadata?.description,
+		description,
+		isManualDescription,
 		hostname,
 		emoji,
 		iconCandidates: Array.from(new Set(candidates)),

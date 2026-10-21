@@ -16,6 +16,8 @@ export interface SmartLinkCardsSettings {
 	enableBlockCards: boolean;
 	enableInlinePills: boolean;
 	showTitleForBareInlineUrls: boolean;
+	showDescriptionInInlinePills: boolean;
+	showManualDescriptionInInlinePills: boolean;
 	enableInReadingMode: boolean;
 	faviconProvider: FaviconProvider;
 	cacheTtlDays: number;
@@ -25,6 +27,8 @@ export const DEFAULT_SETTINGS: Readonly<SmartLinkCardsSettings> = Object.freeze(
 	enableBlockCards: true,
 	enableInlinePills: true,
 	showTitleForBareInlineUrls: true,
+	showDescriptionInInlinePills: false,
+	showManualDescriptionInInlinePills: true,
 	enableInReadingMode: true,
 	faviconProvider: "google",
 	cacheTtlDays: 30,
@@ -67,6 +71,24 @@ export function getSettingDefinitions(actions: SettingActions): SettingDefinitio
 				type: "toggle",
 				key: "showTitleForBareInlineUrls",
 				defaultValue: DEFAULT_SETTINGS.showTitleForBareInlineUrls,
+			} satisfies SettingToggleControl<SettingKey>,
+		},
+		{
+			name: "Description in inline pills",
+			desc: "Show page description inside inline pills.",
+			control: {
+				type: "toggle",
+				key: "showDescriptionInInlinePills",
+				defaultValue: DEFAULT_SETTINGS.showDescriptionInInlinePills,
+			} satisfies SettingToggleControl<SettingKey>,
+		},
+		{
+			name: "Show manual description in inline pills",
+			desc: "Show manually provided descriptions (from link titles) in light grey next to the pill.",
+			control: {
+				type: "toggle",
+				key: "showManualDescriptionInInlinePills",
+				defaultValue: DEFAULT_SETTINGS.showManualDescriptionInInlinePills,
 			} satisfies SettingToggleControl<SettingKey>,
 		},
 		{

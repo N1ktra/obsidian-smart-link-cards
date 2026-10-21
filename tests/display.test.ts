@@ -10,7 +10,7 @@ describe("resolveDisplay", () => {
 
 	it("uses crawled metadata for bare URLs", () => {
 		const d = resolveDisplay(bare, "block", { title: "Foo", description: "Bar", fetchedAt: 1 }, settings);
-		expect(d).toMatchObject({ title: "Foo", description: "Bar", hostname: "github.com", loading: false });
+		expect(d).toMatchObject({ title: "Foo", description: "Bar", hostname: "github.com", loading: false, isManualDescription: false });
 		expect(d.iconCandidates[0]).toBe("https://www.google.com/s2/favicons?domain=github.com&sz=64");
 	});
 
@@ -26,7 +26,7 @@ describe("resolveDisplay", () => {
 			overrides: { title: "Portal", description: "Manual", icon: { type: "emoji", value: "🎓" } },
 		};
 		const d = resolveDisplay(link, "block", { title: "Login", description: "Bot check", fetchedAt: 1 }, settings);
-		expect(d).toMatchObject({ title: "Portal", description: "Manual", emoji: "🎓" });
+		expect(d).toMatchObject({ title: "Portal", description: "Manual", emoji: "🎓", isManualDescription: true });
 		expect(needsMetadata(link, "block", settings)).toBe(false);
 	});
 
@@ -45,6 +45,13 @@ describe("resolveDisplay", () => {
 		expect(needsMetadata(link, "inline", { ...settings, faviconProvider: "site" })).toBe(true);
 		expect(needsMetadata(bare, "inline", settings)).toBe(true);
 		expect(needsMetadata(bare, "inline", { ...settings, showTitleForBareInlineUrls: false })).toBe(false);
+	});
+
+	it("respects inline pill description needsMetadata", () => {
+		const link: LinkDescriptor = { url: "https://a.com", syntax: "markdown", overrides: { title: "A" } };
+		expect(needsMetadata(link, "inline", { ...settings, showDescriptionInInlinePills: true })).toBe(true);
+		const manualLink: LinkDescriptor = { url: "https://a.com", syntax: "markdown", overrides: { title: "A", description: "M" } };
+		expect(needsMetadata(manualLink, "inline", { ...settings, showDescriptionInInlinePills: true })).toBe(false);
 	});
 });
 

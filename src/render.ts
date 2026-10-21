@@ -79,13 +79,24 @@ function renderCard(el: HTMLElement, data: DisplayData, options: MountOptions): 
 	}
 }
 
-function renderPill(el: HTMLElement, data: DisplayData): void {
+function renderPill(el: HTMLElement, data: DisplayData, settings: SmartLinkCardsSettings): void {
 	el.empty();
 	el.toggleClass("slc-loading", data.loading);
 	el.setAttr("aria-label", data.description ? `${data.description}\n${data.url}` : data.url);
 	el.setAttr("data-tooltip-position", "top");
 	renderIcon(el.createSpan({ cls: "slc-pill-icon" }), data, 14);
 	el.createSpan({ cls: "slc-pill-text", text: data.title });
+
+	const showDesc =
+		(data.isManualDescription && settings.showManualDescriptionInInlinePills) ||
+		(!data.isManualDescription && settings.showDescriptionInInlinePills);
+
+	if (showDesc && data.description) {
+		el.createSpan({
+			cls: data.isManualDescription ? "slc-pill-desc slc-pill-desc-manual" : "slc-pill-desc",
+			text: data.description,
+		});
+	}
 }
 
 export function openExternal(url: string): void {
@@ -115,7 +126,7 @@ export function mountLink(
 		const display = resolveDisplay(link, mode, deps.service.get(link.url), settings);
 		display.loading = display.loading && deps.service.isPending(link.url);
 		if (mode === "block") renderCard(el, display, options);
-		else renderPill(el, display);
+		else renderPill(el, display, settings);
 	};
 
 	const unsubscribe = deps.service.subscribe(link.url, paint);
