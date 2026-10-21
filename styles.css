@@ -227,9 +227,9 @@ body {
 	align-items: center;
 	vertical-align: baseline;
 	padding: 1px 8px 2px 6px;
-	border: 1px solid transparent;
+	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--slc-pill-radius);
-	background-color: rgba(var(--color-accent-rgb, 125, 125, 125), 0.08);
+	background-color: transparent;
 	color: var(--link-external-color, var(--text-accent));
 	line-height: inherit;
 	text-decoration: none;
@@ -238,12 +238,18 @@ body {
 	cursor: pointer;
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
-	transition: background-color 120ms ease, color 120ms ease;
+	transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
 .slc-pill:hover {
-	background-color: rgba(var(--color-accent-rgb, 125, 125, 125), 0.16);
+	background-color: var(--background-secondary);
+	border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
 	color: var(--link-external-color-hover, var(--text-accent-hover));
+}
+
+.slc-pill:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
 }
 
 .slc-pill-text {
