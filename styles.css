@@ -1,0 +1,257 @@
+/* ==========================================================================
+   Smart Link Cards
+   Purely visual enhancement – all colours/sizes come from Obsidian variables.
+   ========================================================================== */
+
+body {
+	--slc-card-height: 56px;
+	--slc-card-gap: 4px;
+	--slc-card-radius: var(--radius-m, 8px);
+	--slc-pill-radius: 9999px;
+}
+
+/* --------------------------------------------------------------------------
+   Block card (Mode A)
+   -------------------------------------------------------------------------- */
+
+.slc-card {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	height: var(--slc-card-height);
+	margin: var(--slc-card-gap) 0;
+	padding: 0 14px 0 12px;
+	overflow: hidden;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: var(--slc-card-radius);
+	background-color: var(--background-primary);
+	color: var(--text-normal);
+	font-family: var(--font-interface);
+	line-height: 1.35;
+	white-space: normal;
+	text-decoration: none;
+	text-indent: 0;
+	vertical-align: middle;
+	cursor: pointer;
+	user-select: none;
+	transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.slc-card:hover {
+	background-color: var(--background-secondary);
+	border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
+}
+
+.slc-card:focus-visible {
+	outline: 2px solid var(--interactive-accent);
+	outline-offset: 1px;
+}
+
+.slc-card-icon {
+	display: flex;
+	flex: 0 0 24px;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	color: var(--text-muted);
+}
+
+.slc-card-icon img {
+	display: block;
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	object-fit: contain;
+}
+
+.slc-card-icon svg {
+	width: 20px;
+	height: 20px;
+}
+
+.slc-card-icon .slc-emoji {
+	font-size: 20px;
+	line-height: 1;
+}
+
+.slc-card-body {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	justify-content: center;
+	gap: 2px;
+	min-width: 0;
+}
+
+.slc-card-title,
+.slc-card-desc,
+.slc-card-host {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.slc-card-title {
+	font-size: var(--font-ui-medium, 15px);
+	font-weight: var(--font-semibold, 600);
+	color: var(--text-normal);
+}
+
+.slc-card-desc {
+	font-size: var(--font-ui-small, 13px);
+	color: var(--text-muted);
+}
+
+.slc-card-host {
+	flex: 0 1 auto;
+	max-width: 30%;
+	font-size: var(--font-ui-smaller, 12px);
+	color: var(--text-faint);
+}
+
+.slc-card.slc-loading .slc-card-desc {
+	animation: slc-pulse 1.4s ease-in-out infinite;
+}
+
+/* Edit button (Live Preview only) */
+.slc-card-edit {
+	position: absolute;
+	top: 50%;
+	right: 6px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px;
+	border-radius: var(--radius-s, 4px);
+	background-color: var(--background-secondary);
+	opacity: 0;
+	transform: translateY(-50%);
+	transition: opacity 120ms ease;
+}
+
+.slc-card:hover .slc-card-edit {
+	opacity: 1;
+}
+
+.is-mobile .slc-card-edit {
+	opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+	.slc-card-host {
+		display: none;
+	}
+}
+
+/* Live Preview: reserve the card height on block-link lines in BOTH states
+   (card shown / Markdown revealed) so toggling never causes a layout jump. */
+.markdown-source-view.mod-cm6 .cm-line.slc-block-line {
+	min-height: calc(var(--slc-card-height) + 2 * var(--slc-card-gap));
+}
+
+/* While the card is shown, hide everything else Obsidian or themes render on that line
+   (e.g. leftover external-link icon widgets, SVGs, widget buffers, pseudoelements). */
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > :not(.slc-card),
+.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card),
+.markdown-rendered p:has(.slc-card) > :not(.slc-card),
+.slc-card ~ svg,
+.slc-card ~ [class*="external-link"],
+.slc-card ~ [class*="link-icon"],
+.slc-card + svg {
+	display: none !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line::after,
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line::before,
+.markdown-rendered p:has(.slc-card)::after,
+.markdown-rendered p:has(.slc-card)::before,
+.slc-card::after,
+.slc-card::before {
+	display: none !important;
+	content: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   Inline pill (Mode B)
+   -------------------------------------------------------------------------- */
+
+.slc-pill {
+	display: inline;
+	padding: 1px 8px 2px 6px;
+	border: 1px solid transparent;
+	border-radius: var(--slc-pill-radius);
+	background-color: rgba(var(--color-accent-rgb, 125, 125, 125), 0.08);
+	color: var(--link-external-color, var(--text-accent));
+	line-height: inherit;
+	text-decoration: none;
+	white-space: normal;
+	overflow-wrap: anywhere;
+	cursor: pointer;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+	transition: background-color 120ms ease, color 120ms ease;
+}
+
+.slc-pill:hover {
+	background-color: rgba(var(--color-accent-rgb, 125, 125, 125), 0.16);
+	color: var(--link-external-color-hover, var(--text-accent-hover));
+}
+
+.slc-pill-text {
+	text-decoration: var(--link-external-decoration, var(--link-decoration, underline));
+	text-decoration-color: currentColor;
+	text-underline-offset: 2px;
+}
+
+.slc-pill:hover .slc-pill-text {
+	text-decoration: underline;
+}
+
+.slc-pill-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 14px;
+	margin-right: 4px;
+	vertical-align: -2px;
+	color: var(--text-muted);
+}
+
+.slc-pill-icon img {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	object-fit: contain;
+}
+
+.slc-pill-icon svg {
+	width: 14px;
+	height: 14px;
+}
+
+.slc-pill-icon .slc-emoji {
+	font-size: 0.9em;
+	line-height: 1;
+}
+
+.slc-pill.slc-loading .slc-pill-text {
+	opacity: 0.75;
+}
+
+@keyframes slc-pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.slc-card.slc-loading .slc-card-desc {
+		animation: none;
+	}
+}
