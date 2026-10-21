@@ -184,13 +184,15 @@ export function createLivePreviewExtension(host: LivePreviewHost): Extension {
 				const forced = update.transactions.some((tr) =>
 					tr.effects.some((effect) => effect.is(refreshDecorationsEffect)),
 				);
+				const emptyDecorations = this.decorations.size === 0;
 				if (
 					update.docChanged ||
 					update.viewportChanged ||
 					update.selectionSet ||
 					livePreviewToggled ||
 					forced ||
-					syntaxTree(update.startState) !== syntaxTree(update.state)
+					syntaxTree(update.startState) !== syntaxTree(update.state) ||
+					(emptyDecorations && update.geometryChanged)
 				) {
 					this.decorations = buildDecorations(update.view, host);
 				}

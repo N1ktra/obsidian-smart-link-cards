@@ -1,0 +1,36 @@
+[MAIN] 12:46:28.727 SmartLinkCardsPlugin.onload() started
+[MAIN] 12:46:28.729 SmartLinkCardsPlugin.onload() extension registered
+[LP] 12:46:28.787 StateField.create: docLen=431
+[LP] 12:46:28.787 buildDeco: docLen=431, isLP=true
+[LP] 12:46:28.788 buildDeco: total decos = 5
+[LP] 12:46:28.792 LinkWidget.toDOM: url=https://moodle.tu-dortmund.de/my/, mode=inline
+[RENDER] 12:46:28.793 mountLink.paint: url=https://moodle.tu-dortmund.de/my/, title=Moodle, loading=false
+[LP] 12:46:28.793 LinkWidget.toDOM: url=https://www.boss.tu-dortmund.de/qisserver/rds?state=user&type=0&topitem=, mode=inline
+[RENDER] 12:46:28.793 mountLink.paint: url=https://www.boss.tu-dortmund.de/qisserver/rds?state=user&type=0&topitem=, title=Boss, loading=false
+[LP] 12:46:28.796 LinkWidget.toDOM: url=https://www.lsf.tu-dortmund.de/qisserver/rds;jsessionid=9F4BE7554B8397FDED63DB82FCBA5247.lsf6?state=user&type=0&category=menu.browse&breadCrumbSource=&startpage=portal.vm, mode=inline
+[RENDER] 12:46:28.796 mountLink.paint: url=https://www.lsf.tu-dortmund.de/qisserver/rds;jsessionid=9F4BE7554B8397FDED63DB82FCBA5247.lsf6?state=user&type=0&category=menu.browse&breadCrumbSource=&startpage=portal.vm, title=LSF, loading=false
+[LP] 12:46:28.796 LinkWidget.toDOM: url=https://ess.cs.tu-dortmund.de/ASSESS/?do=login, mode=inline
+[RENDER] 12:46:28.796 mountLink.paint: url=https://ess.cs.tu-dortmund.de/ASSESS/?do=login, title=Assess, loading=false
+[LP] 12:46:28.797 LinkWidget.toDOM: url=https://t.me/tudofsinfochats, mode=inline
+[RENDER] 12:46:28.797 mountLink.paint: url=https://t.me/tudofsinfochats, title=Telegram Gruppe, loading=false
+[LP] 12:46:28.838 buildDeco: docLen=431, isLP=true
+[LP] 12:46:28.839 buildDeco: total decos = 5
+[LP] 12:46:28.849 buildDeco: docLen=431, isLP=true
+[LP] 12:46:28.850 buildDeco: total decos = 5
+[LP] 12:46:28.880 buildDeco: docLen=431, isLP=true
+[LP] 12:46:28.880 buildDeco: total decos = 5
+[LP] 12:47:33.718 StateField.create: docLen=3089
+[LP] 12:47:33.718 buildDeco: docLen=3089, isLP=true
+[LP] 12:47:33.719 buildDeco: total decos = 5
+[LP] 12:47:33.722 LinkWidget.toDOM: url=https://md.fachschaften.org/s/evsB_OyWH6, mode=block
+[RENDER] 12:47:33.722 mountLink.paint: url=https://md.fachschaften.org/s/evsB_OyWH6, title=Letzte Meeting Notes, loading=false
+[LP] 12:47:33.752 buildDeco: docLen=3089, isLP=true
+[LP] 12:47:33.752 buildDeco: total decos = 5
+[LP] 12:47:33.823 buildDeco: docLen=3089, isLP=true
+[LP] 12:47:33.824 buildDeco: total decos = 5
+[LP] 12:47:33.841 buildDeco: docLen=3089, isLP=true
+[LP] 12:47:33.842 buildDeco: total decos = 5
+[LP] 12:47:33.843 buildDeco: docLen=431, isLP=true
+[LP] 12:47:33.844 buildDeco: total decos = 5
+[LP] 12:47:35.317 buildDeco: docLen=431, isLP=true
+[LP] 12:47:35.318 buildDeco: total decos = 5

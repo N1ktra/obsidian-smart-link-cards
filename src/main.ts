@@ -73,6 +73,19 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			name: "Clear link metadata cache",
 			callback: () => void this.clearCache(),
 		});
+
+		this.app.workspace.onLayoutReady(() => {
+			this.refreshViews(false);
+		});
+
+		this.registerEvent(
+			this.app.workspace.on("active-leaf-change", (leaf) => {
+				if (leaf?.view instanceof MarkdownView) {
+					const cm = (leaf.view.editor as unknown as { cm?: EditorView }).cm;
+					cm?.dispatch({ effects: refreshDecorationsEffect.of(null) });
+				}
+			}),
+		);
 	}
 
 	onunload(): void {
@@ -108,8 +121,8 @@ export default class SmartLinkCardsPlugin extends Plugin {
 	}
 
 	/** Re-renders all open Live Preview editors and Reading views. */
-	refreshViews(): void {
-		this.renderVersion++;
+	refreshViews(bumpVersion = true): void {
+		if (bumpVersion) this.renderVersion++;
 		this.app.workspace.getLeavesOfType("markdown").forEach((leaf) => {
 			const view = leaf.view;
 			if (!(view instanceof MarkdownView)) return;
