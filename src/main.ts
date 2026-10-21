@@ -12,6 +12,7 @@ import { LinkCache, type CacheStorage } from "./cache";
 import { createLivePreviewExtension, refreshDecorationsEffect } from "./livePreview";
 import { LinkMetadataService } from "./metadataService";
 import { createReadingModeProcessor } from "./readingMode";
+import { clearIconCache } from "./render";
 import {
 	getSettingDefinitions,
 	sanitizeSettings,
@@ -121,6 +122,7 @@ export default class SmartLinkCardsPlugin extends Plugin {
 	async clearCache(): Promise<void> {
 		await this.cache.clear();
 		this.service.reset();
+		clearIconCache();
 		this.refreshViews();
 		new Notice("Smart Link Cards: cache cleared.");
 	}

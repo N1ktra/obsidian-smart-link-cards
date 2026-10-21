@@ -23,6 +23,22 @@ export function getHostname(url: string): string {
 	}
 }
 
+/**
+ * Checks whether a domain looks like a public internet domain reachable by
+ * public favicon services (Google/DuckDuckGo). Private IPs, localhost and
+ * single-word hostnames will always fail third-party lookups.
+ */
+export function isPublicDomain(domain: string): boolean {
+	if (!domain || !domain.includes(".")) return false;
+	if (/^(localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/i.test(domain)) {
+		return false;
+	}
+	if (/\.(local|internal|lan|home|test|example|invalid)$/i.test(domain)) {
+		return false;
+	}
+	return true;
+}
+
 export function providerFaviconUrl(provider: Exclude<FaviconProvider, "site">, domain: string): string {
 	const encoded = encodeURIComponent(domain);
 	return provider === "duckduckgo"
@@ -32,7 +48,7 @@ export function providerFaviconUrl(provider: Exclude<FaviconProvider, "site">, d
 
 /**
  * Ordered list of favicon URLs to try. The renderer falls through the list on
- * `<img>` load errors and finally shows a generic globe icon.
+ * `<img>` load errors and finally shows a sleek fallback link icon.
  */
 export function faviconCandidates(
 	url: string,
@@ -42,7 +58,7 @@ export function faviconCandidates(
 	const domain = getHostname(url);
 	const candidates: string[] = [];
 	if (provider === "site" && metadata?.faviconUrl) candidates.push(metadata.faviconUrl);
-	if (domain) {
+	if (domain && isPublicDomain(domain)) {
 		if (provider === "duckduckgo") {
 			candidates.push(providerFaviconUrl("duckduckgo", domain));
 			candidates.push(providerFaviconUrl("google", domain));

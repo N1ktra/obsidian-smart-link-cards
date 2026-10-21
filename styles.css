@@ -79,6 +79,29 @@ body {
 	line-height: 1;
 }
 
+/* Fallback link badge (Card) */
+.slc-card-icon .slc-fallback-badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	color: var(--link-external-color, var(--text-accent));
+	opacity: 0.85;
+	transition: opacity 120ms ease;
+}
+
+.slc-card:hover .slc-fallback-badge {
+	opacity: 1;
+}
+
+.slc-card-icon .slc-fallback-badge svg {
+	width: 19px;
+	height: 19px;
+	stroke-width: 2.2px;
+	transform: rotate(-45deg);
+}
+
 .slc-card-body {
 	display: flex;
 	flex: 1 1 auto;
@@ -273,6 +296,23 @@ body {
 .slc-pill-icon .slc-emoji {
 	font-size: 0.9em;
 	line-height: 1;
+}
+
+/* Fallback link badge (Pill) */
+.slc-pill-icon .slc-fallback-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 14px;
+	color: var(--link-external-color, var(--text-accent));
+}
+
+.slc-pill-icon .slc-fallback-badge svg {
+	width: 12px;
+	height: 12px;
+	stroke-width: 2.2px;
+	transform: rotate(-45deg);
 }
 
 .slc-pill.slc-loading .slc-pill-text {

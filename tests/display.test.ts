@@ -1,7 +1,11 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import { requestUrl } from "obsidian";
 import { needsMetadata, prettyUrl, resolveDisplay, type LinkDescriptor } from "../src/display";
 import { faviconCandidates, getHostname } from "../src/favicon";
+import { clearIconCache, resolveIconUrl } from "../src/render";
 import { DEFAULT_SETTINGS } from "../src/settings";
+
+const mockedRequestUrl = vi.mocked(requestUrl);
 
 const settings = { ...DEFAULT_SETTINGS };
 
@@ -71,5 +75,48 @@ describe("favicons", () => {
 	it("shortens URLs", () => {
 		expect(prettyUrl("https://www.example.com/")).toBe("example.com");
 		expect(prettyUrl(`https://a.com/${"x".repeat(100)}`, 20)).toHaveLength(20);
+	});
+
+	it("safely resolves icon candidates via requestUrl without throwing", async () => {
+		clearIconCache();
+		// Test data: URL returns immediately
+		expect(await resolveIconUrl("data:image/png;base64,123")).toBe("data:image/png;base64,123");
+
+		// Test 404 returns null quietly
+		mockedRequestUrl.mockResolvedValueOnce({
+			status: 404,
+			headers: {},
+			arrayBuffer: new ArrayBuffer(0),
+			text: "Not found",
+			json: null,
+		} as unknown as Awaited<ReturnType<typeof requestUrl>>);
+
+		const failed = await resolveIconUrl("https://icons.duckduckgo.com/ip3/missing.ico");
+		expect(failed).toBeNull();
+
+		// Test 1-byte dummy response (e.g. DuckDuckGo placeholder) returns null quietly
+		mockedRequestUrl.mockResolvedValueOnce({
+			status: 200,
+			headers: { "content-type": "image/svg+xml" },
+			arrayBuffer: new Uint8Array([60]).buffer,
+			text: "<",
+			json: null,
+		} as unknown as Awaited<ReturnType<typeof requestUrl>>);
+
+		const dummy = await resolveIconUrl("https://icons.duckduckgo.com/ip3/dummy.ico");
+		expect(dummy).toBeNull();
+
+		// Test successful image fetch returns data URL
+		const buffer = new Uint8Array(70).buffer;
+		mockedRequestUrl.mockResolvedValueOnce({
+			status: 200,
+			headers: { "content-type": "image/png" },
+			arrayBuffer: buffer,
+			text: "",
+			json: null,
+		} as unknown as Awaited<ReturnType<typeof requestUrl>>);
+
+		const success = await resolveIconUrl("https://a.com/favicon.png");
+		expect(success).toMatch(/^data:image\/png;base64,/);
 	});
 });

@@ -2,7 +2,7 @@
  * Native DOM rendering of block cards and inline pills (no UI framework).
  * Shared by the Live Preview widgets and the Reading view post processor.
  */
-import { setIcon } from "obsidian";
+import { requestUrl, setIcon } from "obsidian";
 import { needsMetadata, resolveDisplay, type DisplayData, type LinkDescriptor } from "./display";
 import type { LinkMetadataService } from "./metadataService";
 import type { SmartLinkCardsSettings } from "./settings";
@@ -23,34 +23,167 @@ export interface MountedLink {
 	destroy: () => void;
 }
 
+/** In-memory cache for resolved favicon URLs: url -> data URL, or null if 404/failed. */
+const resolvedIconCache = new Map<string, string | null>();
+const pendingIconResolutions = new Map<string, Promise<string | null>>();
+
+export function clearIconCache(): void {
+	resolvedIconCache.clear();
+	pendingIconResolutions.clear();
+}
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+	if (typeof Buffer !== "undefined") {
+		return Buffer.from(buffer).toString("base64");
+	}
+	let binary = "";
+	const bytes = new Uint8Array(buffer);
+	const len = bytes.byteLength;
+	for (let i = 0; i < len; i++) {
+		binary += String.fromCharCode(bytes[i]);
+	}
+	return btoa(binary);
+}
+
+export async function resolveIconUrl(url: string): Promise<string | null> {
+	if (resolvedIconCache.has(url)) {
+		return resolvedIconCache.get(url)!;
+	}
+	if (pendingIconResolutions.has(url)) {
+		return pendingIconResolutions.get(url)!;
+	}
+	if (url.startsWith("data:")) {
+		if (url.length < 24 || !url.includes(",")) {
+			resolvedIconCache.set(url, null);
+			return null;
+		}
+		resolvedIconCache.set(url, url);
+		return url;
+	}
+
+	const promise = (async () => {
+		try {
+			const res = await requestUrl({
+				url,
+				method: "GET",
+				throw: false,
+				headers: {
+					Accept: "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+				},
+			});
+			// Must be 2xx/3xx and at least 40 bytes (DuckDuckGo and other services return dummy 1-byte responses when missing)
+			if (res && res.status >= 200 && res.status < 400 && res.arrayBuffer && res.arrayBuffer.byteLength > 40) {
+				const contentType = res.headers?.["content-type"] || "image/png";
+				if (contentType.includes("svg")) {
+					const text = typeof res.text === "string" ? res.text : "";
+					if (!text.toLowerCase().includes("<svg")) {
+						resolvedIconCache.set(url, null);
+						return null;
+					}
+				}
+				if (contentType.startsWith("image/") || contentType.includes("icon")) {
+					const base64 = arrayBufferToBase64(res.arrayBuffer);
+					const dataUrl = `data:${contentType};base64,${base64}`;
+					resolvedIconCache.set(url, dataUrl);
+					return dataUrl;
+				}
+			}
+			resolvedIconCache.set(url, null);
+			return null;
+		} catch {
+			resolvedIconCache.set(url, null);
+			return null;
+		} finally {
+			pendingIconResolutions.delete(url);
+		}
+	})();
+
+	pendingIconResolutions.set(url, promise);
+	return promise;
+}
+
+function renderFallbackIcon(container: HTMLElement, size: number): void {
+	container.empty();
+	const badge = container.createSpan({ cls: "slc-fallback-badge" });
+	try {
+		setIcon(badge, "link-2");
+	} catch {
+		setIcon(badge, "link");
+	}
+}
+
 function renderIcon(container: HTMLElement, data: DisplayData, size: number): void {
 	if (data.emoji) {
 		container.createSpan({ cls: "slc-emoji", text: data.emoji });
 		return;
 	}
 	const candidates = [...data.iconCandidates];
-	const img = container.createEl("img", {
-		attr: {
-			alt: "",
-			width: String(size),
-			height: String(size),
-			loading: "lazy",
-			decoding: "async",
-			referrerpolicy: "no-referrer",
-			draggable: "false",
-		},
-	});
-	const tryNext = () => {
-		const next = candidates.shift();
-		if (next) {
-			img.src = next;
+	if (candidates.length === 0) {
+		renderFallbackIcon(container, size);
+		return;
+	}
+
+	// 1. If any candidate was already resolved successfully, render immediately:
+	for (const candidate of candidates) {
+		const cached = resolvedIconCache.get(candidate);
+		if (cached) {
+			container.empty();
+			const img = container.createEl("img", {
+				attr: {
+					alt: "",
+					width: String(size),
+					height: String(size),
+					src: cached,
+					loading: "lazy",
+					decoding: "async",
+					draggable: "false",
+				},
+			});
+			img.onerror = () => {
+				resolvedIconCache.set(candidate, null);
+				renderFallbackIcon(container, size);
+			};
 			return;
 		}
-		img.remove();
-		setIcon(container, "globe");
-	};
-	img.addEventListener("error", tryNext);
-	tryNext();
+	}
+
+	// 2. If all candidates are already known to have failed, render fallback immediately:
+	const remaining = candidates.filter((c) => resolvedIconCache.get(c) !== null);
+	if (remaining.length === 0) {
+		renderFallbackIcon(container, size);
+		return;
+	}
+
+	// 3. Render fallback badge as instant placeholder:
+	renderFallbackIcon(container, size);
+
+	// 4. Resolve candidates safely via requestUrl (never produces browser DOM 404 console errors):
+	void (async () => {
+		for (const candidate of remaining) {
+			const dataUrl = await resolveIconUrl(candidate);
+			if (dataUrl) {
+				if (container.parentElement) {
+					container.empty();
+					const img = container.createEl("img", {
+						attr: {
+							alt: "",
+							width: String(size),
+							height: String(size),
+							src: dataUrl,
+							loading: "lazy",
+							decoding: "async",
+							draggable: "false",
+						},
+					});
+					img.onerror = () => {
+						resolvedIconCache.set(candidate, null);
+						renderFallbackIcon(container, size);
+					};
+				}
+				return;
+			}
+		}
+	})();
 }
 
 function renderCard(el: HTMLElement, data: DisplayData, options: MountOptions): void {
