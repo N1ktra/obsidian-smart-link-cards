@@ -7,6 +7,7 @@ import {
 	type SettingDefinition,
 } from "obsidian";
 import type { EditorView } from "@codemirror/view";
+import { Prec } from "@codemirror/state";
 import { LinkCache, type CacheStorage } from "./cache";
 import { createLivePreviewExtension, refreshDecorationsEffect } from "./livePreview";
 import { LinkMetadataService } from "./metadataService";
@@ -43,7 +44,7 @@ export default class SmartLinkCardsPlugin extends Plugin {
 	settings!: SmartLinkCardsSettings;
 	cache!: LinkCache;
 	service!: LinkMetadataService;
-	private renderVersion = 0;
+	private renderVersion = Date.now();
 
 	async onload(): Promise<void> {
 		await this.loadSettings();
@@ -64,7 +65,7 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			getVersion: () => this.renderVersion,
 		};
 
-		this.registerEditorExtension(createLivePreviewExtension(deps));
+		this.registerEditorExtension(Prec.highest(createLivePreviewExtension(deps)));
 		this.registerMarkdownPostProcessor(createReadingModeProcessor(deps));
 		this.addSettingTab(new SmartLinkCardsSettingTab(this.app, this));
 
@@ -74,9 +75,13 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			callback: () => void this.clearCache(),
 		});
 
-		this.app.workspace.onLayoutReady(() => {
+		if (this.app.workspace.layoutReady) {
 			this.refreshViews(false);
-		});
+		} else {
+			this.app.workspace.onLayoutReady(() => {
+				this.refreshViews(false);
+			});
+		}
 
 		this.registerEvent(
 			this.app.workspace.on("active-leaf-change", (leaf) => {

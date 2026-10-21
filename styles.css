@@ -156,7 +156,7 @@ body {
 
 /* While the card is shown, hide everything else Obsidian or themes render on that line
    (e.g. leftover external-link icon widgets, SVGs, widget buffers, pseudoelements). */
-.markdown-source-view.mod-cm6 .cm-line.slc-card-line > :not(.slc-card),
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card),
 .markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card),
 .markdown-rendered p:has(.slc-card) > :not(.slc-card),
 .slc-card ~ svg,
