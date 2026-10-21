@@ -129,17 +129,28 @@ body {
 /* Edit button (Live Preview only) */
 .slc-card-edit {
 	position: absolute;
-	top: 50%;
+	top: 6px;
 	right: 6px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 4px;
+	padding: 3px;
 	border-radius: var(--radius-s, 4px);
 	background-color: var(--background-secondary);
+	color: var(--text-muted);
 	opacity: 0;
-	transform: translateY(-50%);
-	transition: opacity 120ms ease;
+	transition: opacity 120ms ease, background-color 120ms ease, color 120ms ease;
+	z-index: 2;
+}
+
+.slc-card-edit:hover {
+	background-color: var(--background-modifier-hover);
+	color: var(--text-normal);
+}
+
+.slc-card-edit svg {
+	width: 14px;
+	height: 14px;
 }
 
 .slc-card:hover .slc-card-edit {

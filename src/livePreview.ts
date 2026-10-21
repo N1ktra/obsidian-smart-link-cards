@@ -12,6 +12,7 @@ import {
 	EditorView,
 	ViewPlugin,
 	WidgetType,
+	keymap,
 	type DecorationSet,
 	type ViewUpdate,
 } from "@codemirror/view";
@@ -116,6 +117,83 @@ export interface LivePreviewHost extends RenderDeps {
 	getVersion: () => number;
 }
 
+function isStandaloneBlockCard(
+	state: EditorState,
+	line: { text: string; from: number; to: number },
+	host: LivePreviewHost,
+): boolean {
+	if (!host.getSettings().enableBlockCards) return false;
+	if (!line.text.includes("http")) return false;
+	const links = findLinksInLine(line.text);
+	if (links.length === 0) return false;
+	const standalone = getStandaloneLink(line.text, links);
+	if (!standalone) return false;
+	const absFrom = line.from + standalone.from;
+	const absTo = line.from + standalone.to;
+	return !isInSkippedNode(state, absFrom, absTo);
+}
+
+function createNavigationKeymap(host: LivePreviewHost): Extension {
+	return keymap.of([
+		{
+			key: "ArrowDown",
+			run: (view: EditorView) => {
+				const { state } = view;
+				if (!state.field(editorLivePreviewField, false)) return false;
+				if (!state.selection.main.empty) return false;
+
+				const pos = state.selection.main.head;
+				const currentLine = state.doc.lineAt(pos);
+				if (currentLine.number >= state.doc.lines) return false;
+
+				try {
+					const cursorBlock = view.lineBlockAt(pos);
+					const lineEndBlock = view.lineBlockAt(currentLine.to);
+					if (cursorBlock.bottom < lineEndBlock.bottom - 2) return false;
+				} catch {
+					// Layout measurement fallback
+				}
+
+				const nextLine = state.doc.line(currentLine.number + 1);
+				if (!isStandaloneBlockCard(state, nextLine, host)) return false;
+
+				const col = pos - currentLine.from;
+				const targetPos = Math.min(nextLine.from + col, nextLine.to);
+				view.dispatch({ selection: { anchor: targetPos }, scrollIntoView: true });
+				return true;
+			},
+		},
+		{
+			key: "ArrowUp",
+			run: (view: EditorView) => {
+				const { state } = view;
+				if (!state.field(editorLivePreviewField, false)) return false;
+				if (!state.selection.main.empty) return false;
+
+				const pos = state.selection.main.head;
+				const currentLine = state.doc.lineAt(pos);
+				if (currentLine.number <= 1) return false;
+
+				try {
+					const cursorBlock = view.lineBlockAt(pos);
+					const lineStartBlock = view.lineBlockAt(currentLine.from);
+					if (cursorBlock.top > lineStartBlock.top + 2) return false;
+				} catch {
+					// Layout measurement fallback
+				}
+
+				const prevLine = state.doc.line(currentLine.number - 1);
+				if (!isStandaloneBlockCard(state, prevLine, host)) return false;
+
+				const col = pos - currentLine.from;
+				const targetPos = Math.min(prevLine.from + col, prevLine.to);
+				view.dispatch({ selection: { anchor: targetPos }, scrollIntoView: true });
+				return true;
+			},
+		},
+	]);
+}
+
 function buildDecorations(view: EditorView, host: LivePreviewHost): DecorationSet {
 	const { state } = view;
 	if (!state.field(editorLivePreviewField, false)) return Decoration.none;
@@ -169,35 +247,38 @@ function buildDecorations(view: EditorView, host: LivePreviewHost): DecorationSe
 }
 
 export function createLivePreviewExtension(host: LivePreviewHost): Extension {
-	return ViewPlugin.fromClass(
-		class {
-			decorations: DecorationSet;
+	return [
+		createNavigationKeymap(host),
+		ViewPlugin.fromClass(
+			class {
+				decorations: DecorationSet;
 
-			constructor(view: EditorView) {
-				this.decorations = buildDecorations(view, host);
-			}
-
-			update(update: ViewUpdate) {
-				const livePreviewToggled =
-					update.startState.field(editorLivePreviewField, false) !==
-					update.state.field(editorLivePreviewField, false);
-				const forced = update.transactions.some((tr) =>
-					tr.effects.some((effect) => effect.is(refreshDecorationsEffect)),
-				);
-				const emptyDecorations = this.decorations.size === 0;
-				if (
-					update.docChanged ||
-					update.viewportChanged ||
-					update.selectionSet ||
-					livePreviewToggled ||
-					forced ||
-					syntaxTree(update.startState) !== syntaxTree(update.state) ||
-					(emptyDecorations && update.geometryChanged)
-				) {
-					this.decorations = buildDecorations(update.view, host);
+				constructor(view: EditorView) {
+					this.decorations = buildDecorations(view, host);
 				}
-			}
-		},
-		{ decorations: (plugin) => plugin.decorations },
-	);
+
+				update(update: ViewUpdate) {
+					const livePreviewToggled =
+						update.startState.field(editorLivePreviewField, false) !==
+						update.state.field(editorLivePreviewField, false);
+					const forced = update.transactions.some((tr) =>
+						tr.effects.some((effect) => effect.is(refreshDecorationsEffect)),
+					);
+					const emptyDecorations = this.decorations.size === 0;
+					if (
+						update.docChanged ||
+						update.viewportChanged ||
+						update.selectionSet ||
+						livePreviewToggled ||
+						forced ||
+						syntaxTree(update.startState) !== syntaxTree(update.state) ||
+						(emptyDecorations && update.geometryChanged)
+					) {
+						this.decorations = buildDecorations(update.view, host);
+					}
+				}
+			},
+			{ decorations: (plugin) => plugin.decorations },
+		),
+	];
 }
