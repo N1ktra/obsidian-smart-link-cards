@@ -50,6 +50,7 @@ export function resolveDisplay(
 	mode: DisplayMode,
 	metadata: LinkMetadata | undefined,
 	settings: SmartLinkCardsSettings,
+	resolveVaultPath?: (path: string) => string | null,
 ): DisplayData {
 	const { overrides, url } = link;
 	const hostname = getHostname(url) || url;
@@ -66,8 +67,16 @@ export function resolveDisplay(
 
 	const candidates = faviconCandidates(url, metadata, settings.faviconProvider);
 	let emoji: string | undefined;
-	if (overrides.icon?.type === "emoji") emoji = overrides.icon.value;
-	else if (overrides.icon?.type === "url") candidates.unshift(overrides.icon.value);
+	if (overrides.icon?.type === "emoji") {
+		emoji = overrides.icon.value;
+	} else if (overrides.icon?.type === "url") {
+		candidates.unshift(overrides.icon.value);
+	} else if (overrides.icon?.type === "vault") {
+		const vaultUrl = resolveVaultPath?.(overrides.icon.value);
+		if (vaultUrl) {
+			candidates.unshift(vaultUrl);
+		}
+	}
 
 	const isManualDescription = overrides.description !== undefined;
 	const description = overrides.description ?? metadata?.description;

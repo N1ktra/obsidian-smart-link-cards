@@ -21,6 +21,7 @@ const BARE_PREFIX_OK = /[\s(*_~]/;
 const TRAILING_PUNCTUATION = /[.,;:!?'"*_~]$/;
 /** Maximum length (in code points) for a non-URL manual icon (emoji). */
 const MAX_EMOJI_LENGTH = 8;
+const IMAGE_EXT = /\.(png|jpe?g|svg|gif|webp|ico|bmp|avif)$/i;
 
 /** Returns `true` for absolute http(s) URLs. */
 export function isWebUrl(url: string | undefined | null): boolean {
@@ -38,11 +39,24 @@ export function normalizeUrl(url: string): string {
 /* Overrides                                                                 */
 /* ------------------------------------------------------------------------ */
 
-/** Classifies a manual icon value as image URL or emoji. */
+/** Classifies a manual icon value as image URL, vault image wikilink, or emoji. */
 export function parseIcon(raw: string | undefined): ManualIcon | undefined {
 	const value = raw?.trim();
 	if (!value) return undefined;
 	if (/^(https?:\/\/|data:image\/)/i.test(value)) return { type: "url", value };
+
+	// Vault wikilink syntax: [[image.jpg]] or ![[image.jpg]] (optionally with alias/size like [[image.jpg|100]])
+	const wikilink = /^!?\[\[([^\]]+)\]\]$/.exec(value);
+	if (wikilink) {
+		const target = wikilink[1].split("|")[0].trim();
+		if (target) return { type: "vault", value: target };
+	}
+
+	// Plain image path in vault (e.g. "image.png" or "attachments/logo.svg")
+	if (IMAGE_EXT.test(value) && !value.includes('"')) {
+		return { type: "vault", value };
+	}
+
 	if (!/\s/.test(value) && Array.from(value).length <= MAX_EMOJI_LENGTH) {
 		return { type: "emoji", value };
 	}
@@ -54,10 +68,8 @@ export function parseIcon(raw: string | undefined): ManualIcon | undefined {
  * `"Manual description | OptionalIcon"`.
  *
  * - Text before the (last) pipe → description
- * - Text after the pipe → icon (image URL or emoji)
- * - No pipe → the whole text is the description
- * - If the part after the pipe is neither a URL nor a short emoji-like token,
- *   the whole text is treated as description.
+ * - Text after the pipe → icon (image URL, vault image wikilink, or emoji)
+ * - No pipe → checks if the whole title is an icon or description
  */
 export function parseTitleOverrides(
 	rawTitle: string | undefined,
@@ -65,8 +77,31 @@ export function parseTitleOverrides(
 	const title = rawTitle?.trim();
 	if (!title) return {};
 
+	// If the entire title is a wikilink (e.g. "[[Bild.jpg]]" or "[[Bild.jpg|alias]]")
+	const entireWikilink = /^!?\[\[([^\]]+)\]\]$/.exec(title);
+	if (entireWikilink) {
+		const target = entireWikilink[1].split("|")[0].trim();
+		if (target) return { icon: { type: "vault", value: target } };
+	}
+
+	// Check if title ends with a wikilink preceded by optional pipe, e.g. "Description | [[Image.png]]"
+	const wikilinkEnd = /(?:^|\s*\|\s*)(!?\[\[[^\]]+\]\])\s*$/.exec(title);
+	if (wikilinkEnd) {
+		const wikilinkRaw = wikilinkEnd[1];
+		const icon = parseIcon(wikilinkRaw);
+		if (icon) {
+			const descPart = title.slice(0, wikilinkEnd.index).trim();
+			const description = descPart.replace(/\s*\|\s*$/, "").trim();
+			const result: Pick<LinkOverrides, "description" | "icon"> = { icon };
+			if (description) result.description = description;
+			return result;
+		}
+	}
+
 	const pipe = title.lastIndexOf("|");
-	if (pipe === -1) return { description: title };
+	if (pipe === -1) {
+		return { description: title };
+	}
 
 	const description = title.slice(0, pipe).trim();
 	const icon = parseIcon(title.slice(pipe + 1));

@@ -2,6 +2,7 @@ import {
 	MarkdownView,
 	Notice,
 	Plugin,
+	TFile,
 	normalizePath,
 	type DataAdapter,
 	type SettingDefinition,
@@ -64,6 +65,7 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			service: this.service,
 			getSettings: () => this.settings,
 			getVersion: () => this.renderVersion,
+			resolveVaultPath: (path: string) => this.resolveVaultPath(path),
 		};
 
 		this.registerEditorExtension(Prec.highest(createLivePreviewExtension(deps)));
@@ -92,6 +94,20 @@ export default class SmartLinkCardsPlugin extends Plugin {
 				}
 			}),
 		);
+	}
+
+	/** Resolves a vault file path / wikilink target (e.g. `[[Bild.jpg]]`) to a local resource URI. */
+	resolveVaultPath(path: string): string | null {
+		const cleanPath = path.trim();
+		if (!cleanPath) return null;
+		const file =
+			this.app.metadataCache.getFirstLinkpathDest(cleanPath, "") ??
+			this.app.vault.getAbstractFileByPath(cleanPath) ??
+			this.app.vault.getAbstractFileByPath(normalizePath(cleanPath));
+		if (file instanceof TFile) {
+			return this.app.vault.getResourcePath(file);
+		}
+		return null;
 	}
 
 	onunload(): void {

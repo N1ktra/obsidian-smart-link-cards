@@ -84,7 +84,7 @@ export function getSettingDefinitions(actions: SettingActions): SettingDefinitio
 		},
 		{
 			name: "Show manual description in inline pills",
-			desc: "Show manually provided descriptions (from link titles) in light grey next to the pill.",
+			desc: "Show manually provided descriptions in light grey next to the pill (defined via link title: [Link](url \"Description | Icon\")).",
 			control: {
 				type: "toggle",
 				key: "showManualDescriptionInInlinePills",
@@ -102,7 +102,7 @@ export function getSettingDefinitions(actions: SettingActions): SettingDefinitio
 		},
 		{
 			name: "Favicon provider",
-			desc: "Service used to resolve favicons. Icons are referenced by URL and never stored in your vault.",
+			desc: "Service used to resolve favicons (overridden if set via [Link](url \"Desc | [[image.png]]\")). Icons are referenced by URL and never stored in your vault.",
 			control: {
 				type: "dropdown",
 				key: "faviconProvider",

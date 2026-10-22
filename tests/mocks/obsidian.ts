@@ -18,6 +18,12 @@ export class MarkdownRenderChild {
 	onunload(): void {}
 }
 
+export class TFile {
+	extension = "";
+	path = "";
+	name = "";
+}
+
 export class Plugin {}
 
 export class PluginSettingTab {

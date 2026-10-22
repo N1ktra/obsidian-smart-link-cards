@@ -131,6 +131,29 @@ describe("title attribute overrides", () => {
 		});
 	});
 
+	it("splits description and vault image icon at the pipe", () => {
+		expect(parseTitleOverrides("Portal | [[Bild.jpg]]")).toEqual({
+			description: "Portal",
+			icon: { type: "vault", value: "Bild.jpg" },
+		});
+		expect(parseTitleOverrides("Portal | ![[attachments/Bild.png|100]]")).toEqual({
+			description: "Portal",
+			icon: { type: "vault", value: "attachments/Bild.png" },
+		});
+	});
+
+	it("supports a vault image icon without description", () => {
+		expect(parseTitleOverrides("[[Bild.jpg]]")).toEqual({
+			icon: { type: "vault", value: "Bild.jpg" },
+		});
+		expect(parseTitleOverrides("![[Bild.jpg|alias]]")).toEqual({
+			icon: { type: "vault", value: "Bild.jpg" },
+		});
+		expect(parseTitleOverrides("| [[Bild.jpg]]")).toEqual({
+			icon: { type: "vault", value: "Bild.jpg" },
+		});
+	});
+
 	it("supports an icon without description", () => {
 		expect(parseTitleOverrides("| 🎓")).toEqual({ icon: { type: "emoji", value: "🎓" } });
 	});
@@ -149,6 +172,9 @@ describe("title attribute overrides", () => {
 		expect(parseIcon("👨‍👩‍👧")).toEqual({ type: "emoji", value: "👨‍👩‍👧" });
 		expect(parseIcon("https://x.y/i.svg")).toEqual({ type: "url", value: "https://x.y/i.svg" });
 		expect(parseIcon("data:image/png;base64,AAA")?.type).toBe("url");
+		expect(parseIcon("[[Bild.jpg]]")).toEqual({ type: "vault", value: "Bild.jpg" });
+		expect(parseIcon("![[assets/logo.svg|200]]")).toEqual({ type: "vault", value: "assets/logo.svg" });
+		expect(parseIcon("my-logo.png")).toEqual({ type: "vault", value: "my-logo.png" });
 		expect(parseIcon("")).toBeUndefined();
 	});
 
@@ -160,6 +186,13 @@ describe("title attribute overrides", () => {
 			icon: { type: "emoji", value: "🎓" },
 		});
 		expect(link.rawTitle).toBe("Kursportal | 🎓");
+
+		const [vaultLink] = findLinksInLine('[Moodle](https://moodle.uni.de "Kursportal | [[Bild.jpg]]")');
+		expect(vaultLink.overrides).toEqual({
+			title: "Moodle",
+			description: "Kursportal",
+			icon: { type: "vault", value: "Bild.jpg" },
+		});
 	});
 
 	it("supports single-quoted, parenthesised and escaped titles", () => {

@@ -11,6 +11,7 @@ import type { DisplayMode } from "./types";
 export interface RenderDeps {
 	service: LinkMetadataService;
 	getSettings: () => SmartLinkCardsSettings;
+	resolveVaultPath?: (path: string) => string | null;
 }
 
 export interface MountOptions {
@@ -45,12 +46,25 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 	return btoa(binary);
 }
 
+function isLocalResourceUrl(url: string): boolean {
+	return (
+		url.startsWith("app://") ||
+		url.startsWith("capacitor://") ||
+		url.startsWith("atom://") ||
+		url.startsWith("file://")
+	);
+}
+
 export async function resolveIconUrl(url: string): Promise<string | null> {
 	if (resolvedIconCache.has(url)) {
 		return resolvedIconCache.get(url)!;
 	}
 	if (pendingIconResolutions.has(url)) {
 		return pendingIconResolutions.get(url)!;
+	}
+	if (isLocalResourceUrl(url)) {
+		resolvedIconCache.set(url, url);
+		return url;
 	}
 	if (url.startsWith("data:")) {
 		if (url.length < 24 || !url.includes(",")) {
@@ -121,6 +135,12 @@ function renderIcon(container: HTMLElement, data: DisplayData, size: number): vo
 	if (candidates.length === 0) {
 		renderFallbackIcon(container, size);
 		return;
+	}
+
+	for (const candidate of candidates) {
+		if (isLocalResourceUrl(candidate)) {
+			resolvedIconCache.set(candidate, candidate);
+		}
 	}
 
 	// 1. If any candidate was already resolved successfully, render immediately:
@@ -291,7 +311,7 @@ export function mountLink(
 
 	const paint = () => {
 		const settings = deps.getSettings();
-		const display = resolveDisplay(link, mode, deps.service.get(link.url), settings);
+		const display = resolveDisplay(link, mode, deps.service.get(link.url), settings, deps.resolveVaultPath);
 		display.loading = display.loading && deps.service.isPending(link.url);
 		if (mode === "block") renderCard(el, display, options);
 		else renderPill(el, display, settings);

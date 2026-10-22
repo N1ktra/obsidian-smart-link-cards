@@ -43,6 +43,17 @@ describe("resolveDisplay", () => {
 		expect(resolveDisplay(link, "inline", undefined, settings).iconCandidates[0]).toBe("https://a.com/i.png");
 	});
 
+	it("puts a resolved vault image resource path first", () => {
+		const link: LinkDescriptor = {
+			url: "https://a.com",
+			syntax: "markdown",
+			overrides: { icon: { type: "vault", value: "Bild.jpg" } },
+		};
+		const resolveVault = (path: string) => path === "Bild.jpg" ? "app://local/vault/Bild.jpg" : null;
+		const display = resolveDisplay(link, "inline", undefined, settings, resolveVault);
+		expect(display.iconCandidates[0]).toBe("app://local/vault/Bild.jpg");
+	});
+
 	it("inline markdown links need no fetch with the google provider", () => {
 		const link: LinkDescriptor = { url: "https://a.com", syntax: "markdown", overrides: { title: "A" } };
 		expect(needsMetadata(link, "inline", settings)).toBe(false);
@@ -81,6 +92,10 @@ describe("favicons", () => {
 		clearIconCache();
 		// Test data: URL returns immediately
 		expect(await resolveIconUrl("data:image/png;base64,123")).toBe("data:image/png;base64,123");
+
+		// Test app:// / capacitor:// URL returns immediately without fetching
+		expect(await resolveIconUrl("app://local/vault/Bild.jpg")).toBe("app://local/vault/Bild.jpg");
+		expect(mockedRequestUrl).not.toHaveBeenCalledWith(expect.objectContaining({ url: "app://local/vault/Bild.jpg" }));
 
 		// Test 404 returns null quietly
 		mockedRequestUrl.mockResolvedValueOnce({

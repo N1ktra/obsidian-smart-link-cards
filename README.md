@@ -19,12 +19,14 @@ Hover a card in Live Preview and click the ✏️ button to jump into the source
 ```md
 [Moodle](https://moodle.uni.example "Course portal | 🎓")
 [Intranet](https://intra.example "Internal wiki | https://intra.example/logo.png")
+[Vault image](https://example.com "My note | [[attachments/icon.png]]")
 [Docs](https://docs.example "Only a description")
 ```
 
 - `[…]` → title
-- title attribute before the (last) `|` → description; after it → icon (image URL or emoji)
-- without `|` → the whole text is the description
+- title attribute before the pipe → description; after it → icon (vault image `[[image.png]]`, web image URL, or emoji)
+- vault images can be referenced using Obsidian wikilinks: `[[Bild.jpg]]` or `![[attachments/logo.png]]` (with or without alias/size)
+- without `|` → the whole text is the description (unless it is a vault image like `[[Bild.jpg]]`)
 - Manual values always win. If title, description and icon are all given, nothing is fetched at all (ideal for bot-protected pages).
 
 ## Caching & Git discipline

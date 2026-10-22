@@ -11,10 +11,11 @@ export interface LinkMetadata {
 	fetchedAt: number;
 }
 
-/** A manual icon given via the Markdown title attribute (`"Desc | 🎓"`). */
+/** A manual icon given via the Markdown title attribute (`"Desc | 🎓"`, `"Desc | [[img.jpg]]"`, or `"Desc | https://..."`). */
 export type ManualIcon =
 	| { type: "url"; value: string }
-	| { type: "emoji"; value: string };
+	| { type: "emoji"; value: string }
+	| { type: "vault"; value: string };
 
 /** Manual values that always take precedence over crawled metadata. */
 export interface LinkOverrides {
