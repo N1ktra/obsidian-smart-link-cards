@@ -187,21 +187,40 @@ function renderIcon(container: HTMLElement, data: DisplayData, size: number): vo
 }
 
 function renderCard(el: HTMLElement, data: DisplayData, options: MountOptions): void {
-	el.empty();
 	el.toggleClass("slc-loading", data.loading);
 	el.setAttr("aria-label", data.url);
 	el.setAttr("data-tooltip-position", "top");
 
-	renderIcon(el.createDiv({ cls: "slc-card-icon" }), data, 24);
+	let icon = el.querySelector<HTMLElement>(".slc-card-icon");
+	if (!icon) {
+		icon = el.createDiv({ cls: "slc-card-icon" });
+	}
+	renderIcon(icon, data, 24);
 
-	const body = el.createDiv({ cls: "slc-card-body" });
-	body.createDiv({ cls: "slc-card-title", text: data.title });
-	const description = data.description ?? (data.loading ? "Loading preview…" : data.url);
-	body.createDiv({ cls: "slc-card-desc", text: description });
+	let body = el.querySelector<HTMLElement>(".slc-card-body");
+	let titleEl: HTMLElement;
+	let descEl: HTMLElement;
+	if (!body) {
+		body = el.createDiv({ cls: "slc-card-body" });
+		titleEl = body.createDiv({ cls: "slc-card-title", text: data.title });
+		const description = data.description ?? (data.loading ? "Loading preview…" : data.url);
+		descEl = body.createDiv({ cls: "slc-card-desc", text: description });
+	} else {
+		titleEl = body.querySelector<HTMLElement>(".slc-card-title") ?? body.createDiv({ cls: "slc-card-title" });
+		descEl = body.querySelector<HTMLElement>(".slc-card-desc") ?? body.createDiv({ cls: "slc-card-desc" });
+		titleEl.textContent = data.title;
+		const description = data.description ?? (data.loading ? "Loading preview…" : data.url);
+		descEl.textContent = description;
+	}
 
-	el.createDiv({ cls: "slc-card-host", text: data.hostname });
+	let host = el.querySelector<HTMLElement>(".slc-card-host");
+	if (!host) {
+		host = el.createDiv({ cls: "slc-card-host", text: data.hostname });
+	} else {
+		host.textContent = data.hostname;
+	}
 
-	if (options.onEdit) {
+	if (options.onEdit && !el.querySelector(".slc-card-edit")) {
 		const edit = el.createDiv({ cls: "slc-card-edit clickable-icon", attr: { "aria-label": "Edit link" } });
 		setIcon(edit, "pencil");
 		edit.addEventListener("click", (event) => {
@@ -213,22 +232,38 @@ function renderCard(el: HTMLElement, data: DisplayData, options: MountOptions): 
 }
 
 function renderPill(el: HTMLElement, data: DisplayData, settings: SmartLinkCardsSettings): void {
-	el.empty();
 	el.toggleClass("slc-loading", data.loading);
 	el.setAttr("aria-label", data.description ? `${data.description}\n${data.url}` : data.url);
 	el.setAttr("data-tooltip-position", "top");
-	renderIcon(el.createSpan({ cls: "slc-pill-icon" }), data, 14);
-	el.createSpan({ cls: "slc-pill-text", text: data.title });
+
+	let icon = el.querySelector<HTMLElement>(".slc-pill-icon");
+	if (!icon) {
+		icon = el.createSpan({ cls: "slc-pill-icon" });
+	}
+	renderIcon(icon, data, 14);
+
+	let textEl = el.querySelector<HTMLElement>(".slc-pill-text");
+	if (!textEl) {
+		textEl = el.createSpan({ cls: "slc-pill-text", text: data.title });
+	} else {
+		textEl.textContent = data.title;
+	}
 
 	const showDesc =
 		(data.isManualDescription && settings.showManualDescriptionInInlinePills) ||
 		(!data.isManualDescription && settings.showDescriptionInInlinePills);
 
+	let descEl = el.querySelector<HTMLElement>(".slc-pill-desc");
 	if (showDesc && data.description) {
-		el.createSpan({
-			cls: data.isManualDescription ? "slc-pill-desc slc-pill-desc-manual" : "slc-pill-desc",
-			text: data.description,
-		});
+		const cls = data.isManualDescription ? "slc-pill-desc slc-pill-desc-manual" : "slc-pill-desc";
+		if (!descEl) {
+			descEl = el.createSpan({ cls, text: data.description });
+		} else {
+			descEl.className = cls;
+			descEl.textContent = data.description;
+		}
+	} else if (descEl) {
+		descEl.remove();
 	}
 }
 

@@ -227,9 +227,10 @@ function buildDecorations(view: EditorView, host: LivePreviewHost): DecorationSe
 						continue;
 					}
 					decorations.push(cardLineDecoration.range(line.from));
-					// Replace the entire line content so no trailing whitespace or Obsidian link-icon widgets linger.
+					// Replace the entire line (or link range if line starts with a quote prefix to avoid CM6 decoration collisions).
+					const replaceFrom = line.text.trimStart().startsWith(">") ? absFrom : line.from;
 					decorations.push(
-						Decoration.replace({ widget: new LinkWidget(link, "block", host, version) }).range(line.from, line.to),
+						Decoration.replace({ widget: new LinkWidget(link, "block", host, version) }).range(replaceFrom, line.to),
 					);
 					continue;
 				}

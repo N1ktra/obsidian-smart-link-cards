@@ -34,17 +34,51 @@ function isBr(node: Node | null): node is HTMLBRElement {
 	return !!node && node.nodeName === "BR";
 }
 
+function isIgnoredSibling(node: Node | null): boolean {
+	if (!node) return false;
+	if (isBlank(node)) return true;
+	if (node instanceof HTMLElement) {
+		if (node.tagName === "SVG") return true;
+		if (
+			node.tagName !== "A" &&
+			!node.classList.contains("slc-card") &&
+			!node.classList.contains("slc-pill") &&
+			/external-link-icon|link-icon/i.test(node.className)
+		) {
+			return true;
+		}
+	}
+	return false;
+}
+
+function getMeaningfulSibling(node: Node | null, direction: "prev" | "next"): Node | null {
+	let current = node;
+	while (current && isIgnoredSibling(current)) {
+		current = direction === "prev" ? current.previousSibling : current.nextSibling;
+	}
+	return current;
+}
+
+function isBlockBoundary(node: Node | null): boolean {
+	if (node === null) return true;
+	if (isBr(node)) return true;
+	if (node instanceof HTMLElement) {
+		if (node.classList.contains("slc-card") || node.querySelector(".slc-card")) {
+			return true;
+		}
+	}
+	return false;
+}
+
 /** True if the anchor occupies a "line" of its own inside a paragraph. */
 function isStandaloneAnchor(anchor: HTMLElement): boolean {
 	const parent = anchor.parentElement;
 	if (!parent || parent.tagName !== "P") return false;
-	if (anchor.closest("li, td, th, blockquote, h1, h2, h3, h4, h5, h6, table")) return false;
+	if (anchor.closest("li, td, th, h1, h2, h3, h4, h5, h6, table")) return false;
 
-	let prev = anchor.previousSibling;
-	while (prev && isBlank(prev)) prev = prev.previousSibling;
-	let next = anchor.nextSibling;
-	while (next && isBlank(next)) next = next.nextSibling;
-	return (prev === null || isBr(prev)) && (next === null || isBr(next));
+	const prev = getMeaningfulSibling(anchor.previousSibling, "prev");
+	const next = getMeaningfulSibling(anchor.nextSibling, "next");
+	return isBlockBoundary(prev) && isBlockBoundary(next);
 }
 
 function removeAdjacentBreak(node: Node | null, direction: "prev" | "next"): void {
@@ -53,6 +87,31 @@ function removeAdjacentBreak(node: Node | null, direction: "prev" | "next"): voi
 		current = direction === "prev" ? current.previousSibling : current.nextSibling;
 	}
 	if (isBr(current)) current.remove();
+}
+
+function removeAdjacentLeftoverIcons(anchor: HTMLElement): void {
+	for (const dir of ["previousSibling", "nextSibling"] as const) {
+		let current = anchor[dir];
+		while (current) {
+			if (isBlank(current)) {
+				current = current[dir];
+				continue;
+			}
+			if (
+				current instanceof HTMLElement &&
+				current.tagName !== "A" &&
+				!current.classList.contains("slc-card") &&
+				!current.classList.contains("slc-pill") &&
+				(current.tagName === "SVG" || /external-link-icon|link-icon/i.test(current.className))
+			) {
+				const toRemove = current;
+				current = current[dir];
+				toRemove.remove();
+				continue;
+			}
+			break;
+		}
+	}
 }
 
 function getSourceLinks(el: HTMLElement, ctx: MarkdownPostProcessorContext): DocumentLink[] {
@@ -108,19 +167,7 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 			if (mode === "block") {
 				removeAdjacentBreak(anchor.previousSibling, "prev");
 				removeAdjacentBreak(anchor.nextSibling, "next");
-				// Remove leftover icon siblings (e.g. SVGs injected by themes or Obsidian)
-				const parent = anchor.parentElement;
-				if (parent && parent.tagName === "P") {
-					for (const sibling of Array.from(parent.children)) {
-						if (
-							sibling !== anchor &&
-							(sibling.tagName === "SVG" ||
-								(sibling instanceof HTMLElement && /external|link/i.test(sibling.className)))
-						) {
-							sibling.remove();
-						}
-					}
-				}
+				removeAdjacentLeftoverIcons(anchor);
 			}
 			anchor.replaceWith(mounted.el);
 			ctx.addChild(new LinkRenderChild(mounted.el, mounted.destroy));

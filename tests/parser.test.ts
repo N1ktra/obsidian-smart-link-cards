@@ -86,12 +86,18 @@ describe("block vs inline classification", () => {
 		expect(classifyLine("[GitHub](https://github.com)")[0].mode).toBe("block");
 	});
 
-	it("treats links in text, lists, quotes, headings and tables as inline", () => {
+	it("treats links in quotes on their own line as block", () => {
+		expect(classifyLine("> https://github.com")[0].mode).toBe("block");
+		expect(classifyLine("> [GitHub](https://github.com)")[0].mode).toBe("block");
+		expect(classifyLine(">> https://github.com")[0].mode).toBe("block");
+	});
+
+	it("treats links in text, lists, headings and tables as inline", () => {
 		expect(classifyLine("Look at https://github.com")[0].mode).toBe("inline");
 		expect(classifyLine("https://github.com is great")[0].mode).toBe("inline");
 		expect(classifyLine("- https://github.com")[0].mode).toBe("inline");
 		expect(classifyLine("1. [x](https://github.com)")[0].mode).toBe("inline");
-		expect(classifyLine("> https://github.com")[0].mode).toBe("inline");
+		expect(classifyLine("> text https://github.com")[0].mode).toBe("inline");
 		expect(classifyLine("# [x](https://github.com)")[0].mode).toBe("inline");
 		expect(classifyLine("| https://github.com | b |")[0].mode).toBe("inline");
 	});

@@ -344,8 +344,10 @@ export function getStandaloneLink(line: string, links: ParsedLink[] = findLinksI
 	const link = links[0];
 	const before = line.slice(0, link.from);
 	const after = line.slice(link.to);
-	if (before.trim() !== "" || after.trim() !== "") return null;
+	if (after.trim() !== "") return null;
 	if (/^( {4,}|\t)/.test(before)) return null; // indented code block
+	// Allow empty before or markdown quote/callout prefixes (e.g. "> ", "> > ")
+	if (!/^(\s*>)*\s*$/.test(before)) return null;
 	return link;
 }
 

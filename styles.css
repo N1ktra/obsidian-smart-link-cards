@@ -7,6 +7,7 @@ body {
 	--slc-card-height: 68px;
 	--slc-card-gap: 5px;
 	--slc-card-radius: var(--radius-m, 8px);
+	--slc-pill-height: 22px;
 	--slc-pill-radius: 9999px;
 }
 
@@ -23,6 +24,8 @@ body {
 	width: min(520px, 100%);
 	max-width: 100%;
 	height: var(--slc-card-height);
+	min-height: var(--slc-card-height);
+	max-height: var(--slc-card-height);
 	margin: var(--slc-card-gap) 0;
 	padding: 8px 14px 8px 12px;
 	overflow: hidden;
@@ -145,6 +148,10 @@ body {
 	text-align: right;
 }
 
+.slc-card.slc-loading {
+	cursor: progress;
+}
+
 .slc-card.slc-loading .slc-card-desc {
 	animation: slc-pulse 1.4s ease-in-out infinite;
 }
@@ -196,22 +203,22 @@ body {
 	min-height: calc(var(--slc-card-height) + 2 * var(--slc-card-gap));
 }
 
-/* While the card is shown, hide everything else Obsidian or themes render on that line
-   (e.g. leftover external-link icon widgets, SVGs, widget buffers, pseudoelements). */
+/* While the card is shown in Live Preview, hide leftover external-link icon widgets on that line. */
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card),
-.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card),
-.markdown-rendered p:has(.slc-card) > :not(.slc-card),
-.slc-card ~ svg,
-.slc-card ~ [class*="external-link"],
-.slc-card ~ [class*="link-icon"],
-.slc-card + svg {
+.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card) {
+	display: none !important;
+}
+
+/* Hide theme-injected external link icons immediately adjacent to cards in reading mode */
+.slc-card + svg.svg-icon,
+.slc-card + .external-link-icon,
+.slc-card ~ .external-link-icon:not(a),
+.slc-card ~ svg.svg-icon:not(a) {
 	display: none !important;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line::after,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line::before,
-.markdown-rendered p:has(.slc-card)::after,
-.markdown-rendered p:has(.slc-card)::before,
 .slc-card::after,
 .slc-card::before {
 	display: none !important;
@@ -226,6 +233,11 @@ body {
 	display: inline-flex;
 	align-items: center;
 	vertical-align: baseline;
+	box-sizing: border-box;
+	height: var(--slc-pill-height);
+	min-height: var(--slc-pill-height);
+	max-height: var(--slc-pill-height);
+	max-width: 100%;
 	padding: 1px 8px 2px 6px;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--slc-pill-radius);
@@ -233,8 +245,8 @@ body {
 	color: var(--link-external-color, var(--text-accent));
 	line-height: inherit;
 	text-decoration: none;
-	white-space: normal;
-	overflow-wrap: anywhere;
+	white-space: nowrap;
+	overflow: hidden;
 	cursor: pointer;
 	-webkit-box-decoration-break: clone;
 	box-decoration-break: clone;
@@ -253,6 +265,9 @@ body {
 }
 
 .slc-pill-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 	text-decoration: var(--link-external-decoration, var(--link-decoration, underline));
 	text-decoration-color: currentColor;
 	text-underline-offset: 2px;
@@ -268,6 +283,9 @@ body {
 	color: var(--text-muted);
 	opacity: 0.85;
 	text-decoration: none !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .slc-pill-desc-manual {
@@ -321,8 +339,13 @@ body {
 	transform: rotate(-45deg);
 }
 
+.slc-pill.slc-loading {
+	cursor: progress;
+}
+
 .slc-pill.slc-loading .slc-pill-text {
 	opacity: 0.75;
+	animation: slc-pulse 1.4s ease-in-out infinite;
 }
 
 @keyframes slc-pulse {
