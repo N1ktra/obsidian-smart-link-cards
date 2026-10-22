@@ -21,7 +21,7 @@ body {
 	align-items: center;
 	gap: 12px;
 	box-sizing: border-box;
-	width: min(520px, 100%);
+	width: 520px;
 	max-width: 100%;
 	height: var(--slc-card-height);
 	min-height: var(--slc-card-height);
