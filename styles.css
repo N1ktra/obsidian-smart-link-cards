@@ -237,7 +237,7 @@ body {
 	height: var(--slc-pill-height);
 	min-height: var(--slc-pill-height);
 	max-height: var(--slc-pill-height);
-	max-width: 100%;
+	max-width: calc(100% - 2rem);
 	padding: 1px 8px 2px 6px;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--slc-pill-radius);
@@ -253,6 +253,21 @@ body {
 	transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
+/* Standalone pill in list items: keep bullet, pill and icon on one line and shrink earlier */
+.markdown-source-view.mod-cm6 .cm-line.slc-list-line,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line:has(.slc-pill),
+.markdown-rendered li.slc-list-item,
+.markdown-rendered li:has(> .slc-pill) {
+	white-space: nowrap !important;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.slc-list-line .slc-pill,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line .slc-pill,
+.markdown-rendered li.slc-list-item .slc-pill,
+.markdown-rendered li:has(> .slc-pill) .slc-pill {
+	max-width: calc(100% - 3.5rem);
+}
+
 .slc-pill:hover {
 	background-color: var(--background-secondary);
 	border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
@@ -265,6 +280,8 @@ body {
 }
 
 .slc-pill-text {
+	flex: 0 1 auto;
+	min-width: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
@@ -278,6 +295,8 @@ body {
 }
 
 .slc-pill-desc {
+	flex: 0 1 auto;
+	min-width: 0;
 	margin-left: 6px;
 	font-size: 0.9em;
 	color: var(--text-muted);

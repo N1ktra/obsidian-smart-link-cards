@@ -17,7 +17,7 @@ import {
 	type ViewUpdate,
 } from "@codemirror/view";
 import { editorLivePreviewField } from "obsidian";
-import { findLinksInLine, getStandaloneLink } from "./parser";
+import { findLinksInLine, getStandaloneLink, isStandaloneListLink } from "./parser";
 import { mountLink, type RenderDeps } from "./render";
 import type { DisplayMode, ParsedLink } from "./types";
 
@@ -33,6 +33,8 @@ const CARD_HEIGHT_ESTIMATE = 78;
 const blockLineDecoration = Decoration.line({ class: "slc-block-line" });
 /** Line with a visible card: lets CSS hide Obsidian's leftover link decorations (e.g. the external-link icon). */
 const cardLineDecoration = Decoration.line({ class: "slc-block-line slc-card-line" });
+/** Line with a standalone list item pill: prevents ugly wrapping under the bullet and shrinks earlier. */
+const listLineDecoration = Decoration.line({ class: "slc-list-line" });
 
 function sameOverrides(a: ParsedLink, b: ParsedLink): boolean {
 	return (
@@ -237,6 +239,9 @@ function buildDecorations(view: EditorView, host: LivePreviewHost): DecorationSe
 
 				if (!settings.enableInlinePills) continue;
 				if (selectionTouches(state, absFrom, absTo)) continue;
+				if (isStandaloneListLink(line.text, link)) {
+					decorations.push(listLineDecoration.range(line.from));
+				}
 				decorations.push(
 					Decoration.replace({ widget: new LinkWidget(link, "inline", host, version) }).range(absFrom, absTo),
 				);

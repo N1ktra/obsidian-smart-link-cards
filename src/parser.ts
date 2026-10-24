@@ -386,6 +386,14 @@ export function getStandaloneLink(line: string, links: ParsedLink[] = findLinksI
 	return link;
 }
 
+/** Returns true if the link is the only meaningful content of a Markdown list item line. */
+export function isStandaloneListLink(line: string, link: ParsedLink): boolean {
+	const before = line.slice(0, link.from);
+	const after = line.slice(link.to);
+	if (after.trim() !== "") return false;
+	return /^\s*([-*+]|\d+[.)])\s+$/.test(before);
+}
+
 /** Classifies every link in a line as `block` or `inline`. */
 export function classifyLine(line: string): Array<ParsedLink & { mode: DisplayMode }> {
 	const links = findLinksInLine(line);

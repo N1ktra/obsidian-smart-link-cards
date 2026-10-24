@@ -4,6 +4,7 @@ import {
 	findInlineCodeRanges,
 	findLinksInLine,
 	getStandaloneLink,
+	isStandaloneListLink,
 	normalizeUrl,
 	parseDocument,
 	parseIcon,
@@ -109,6 +110,50 @@ describe("block vs inline classification", () => {
 
 	it("does not treat indented (code) lines as block", () => {
 		expect(getStandaloneLink("    https://github.com")).toBeNull();
+	});
+});
+
+describe("isStandaloneListLink", () => {
+	it("identifies standalone links in bullet lists", () => {
+		const line = "- https://github.com";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(true);
+	});
+
+	it("identifies standalone links in nested bullet lists", () => {
+		const line = "  - https://github.com";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(true);
+	});
+
+	it("identifies standalone links with markdown syntax in lists", () => {
+		const line = "  * [GitHub](https://github.com)";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(true);
+	});
+
+	it("identifies standalone links in numbered lists", () => {
+		const line = "1. https://github.com";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(true);
+	});
+
+	it("returns false if there is text before the link", () => {
+		const line = "- Visuals: https://github.com";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(false);
+	});
+
+	it("returns false if there is text after the link", () => {
+		const line = "- https://github.com (docs)";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(false);
+	});
+
+	it("returns false for non-list lines", () => {
+		const line = "https://github.com";
+		const [link] = findLinksInLine(line);
+		expect(isStandaloneListLink(line, link)).toBe(false);
 	});
 });
 

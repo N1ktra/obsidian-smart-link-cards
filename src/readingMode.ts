@@ -81,6 +81,15 @@ function isStandaloneAnchor(anchor: HTMLElement): boolean {
 	return isBlockBoundary(prev) && isBlockBoundary(next);
 }
 
+/** If the anchor is the only text inside a list item, return the `<li>` element. */
+function getListItemForStandaloneAnchor(anchor: HTMLElement): HTMLElement | null {
+	const li = anchor.closest("li");
+	if (!li) return null;
+	const fullText = (li.textContent ?? "").trim();
+	const anchorText = (anchor.textContent ?? "").trim();
+	return fullText === anchorText ? li : null;
+}
+
 function removeAdjacentBreak(node: Node | null, direction: "prev" | "next"): void {
 	let current = node;
 	while (current && isBlank(current)) {
@@ -168,6 +177,11 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 				removeAdjacentBreak(anchor.previousSibling, "prev");
 				removeAdjacentBreak(anchor.nextSibling, "next");
 				removeAdjacentLeftoverIcons(anchor);
+			} else {
+				const standaloneLi = getListItemForStandaloneAnchor(anchor);
+				if (standaloneLi) {
+					standaloneLi.classList.add("slc-list-item");
+				}
 			}
 			anchor.replaceWith(mounted.el);
 			ctx.addChild(new LinkRenderChild(mounted.el, mounted.destroy));
