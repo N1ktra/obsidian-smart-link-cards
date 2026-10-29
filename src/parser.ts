@@ -391,7 +391,7 @@ export function isStandaloneListLink(line: string, link: ParsedLink): boolean {
 	const before = line.slice(0, link.from);
 	const after = line.slice(link.to);
 	if (after.trim() !== "") return false;
-	return /^\s*([-*+]|\d+[.)])\s+$/.test(before);
+	return /^\s*([-*+]|\d+[.)])(\s+\[[ xX]\])?\s+$/.test(before);
 }
 
 /** Classifies every link in a line as `block` or `inline`. */

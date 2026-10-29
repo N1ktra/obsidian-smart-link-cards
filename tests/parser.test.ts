@@ -138,10 +138,24 @@ describe("isStandaloneListLink", () => {
 		expect(isStandaloneListLink(line, link)).toBe(true);
 	});
 
+	it("identifies standalone links in task lists", () => {
+		const unchecked = "- [ ] https://github.com";
+		const [link1] = findLinksInLine(unchecked);
+		expect(isStandaloneListLink(unchecked, link1)).toBe(true);
+
+		const checked = "- [x] [GitHub](https://github.com)";
+		const [link2] = findLinksInLine(checked);
+		expect(isStandaloneListLink(checked, link2)).toBe(true);
+	});
+
 	it("returns false if there is text before the link", () => {
 		const line = "- Visuals: https://github.com";
 		const [link] = findLinksInLine(line);
 		expect(isStandaloneListLink(line, link)).toBe(false);
+
+		const longLine = "- (Selbstgemachter) Spiegel der leuchtet (led streifen um den Rand) [Herding](https://example.com)";
+		const [linkLong] = findLinksInLine(longLine);
+		expect(isStandaloneListLink(longLine, linkLong)).toBe(false);
 	});
 
 	it("returns false if there is text after the link", () => {

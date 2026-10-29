@@ -255,16 +255,12 @@ body {
 
 /* Standalone pill in list items: keep bullet, pill and icon on one line and shrink earlier */
 .markdown-source-view.mod-cm6 .cm-line.slc-list-line,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line:has(.slc-pill),
-.markdown-rendered li.slc-list-item,
-.markdown-rendered li:has(> .slc-pill) {
+.markdown-rendered li.slc-list-item {
 	white-space: nowrap !important;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-list-line .slc-pill,
-.markdown-source-view.mod-cm6 .cm-line.HyperMD-list-line .slc-pill,
-.markdown-rendered li.slc-list-item .slc-pill,
-.markdown-rendered li:has(> .slc-pill) .slc-pill {
+.markdown-rendered li.slc-list-item .slc-pill {
 	max-width: calc(100% - 3.5rem);
 }
 
