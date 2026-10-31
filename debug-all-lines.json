@@ -1,0 +1,556 @@
+[
+  {
+    "text": "- %%⏷type: info%% Visuals:",
+    "class": "cm-line cm-active",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": -315.2275085449219,
+      "width": 628.2072143554688,
+      "height": 23.98574447631836,
+      "top": -315.2275085449219,
+      "right": 1000.4659729003906,
+      "bottom": -291.2417640686035,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "\t- Aus der Community Unity3D auf Reddit",
+    "class": "cm-line slc-list-line itgl-colored HyperMD-list-line HyperMD-list-line-2",
+    "hasCard": false,
+    "hasPill": true,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": -161.77357482910156,
+      "width": 628.2072143554688,
+      "height": 26.37061309814453,
+      "top": -161.77357482910156,
+      "right": 1000.4659729003906,
+      "bottom": -135.40296173095703,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "",
+    "class": "cm-line itgl-colored",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": -135.4029541015625,
+      "width": 628.2072143554688,
+      "height": 23.98574447631836,
+      "top": -135.4029541015625,
+      "right": 1000.4659729003906,
+      "bottom": -111.41720962524414,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": " Hundreds of 3D Texture Downloads - Free PBR Mater",
+    "class": "cm-line slc-block-line slc-card-line itgl-colored",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": -111.4172134399414,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": -111.4172134399414,
+      "right": 1000.4659729003906,
+      "bottom": -33.42927551269531,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Hundreds of 3D Texture Downloads - Free PBR Materials",
+        "url": "http://freepbr.com",
+        "rect": {
+          "x": 376.6447448730469,
+          "y": -106.42817687988281,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": -106.42817687988281,
+          "right": 896.6419982910156,
+          "bottom": -38.43201446533203,
+          "left": 376.6447448730469
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line itgl-colored",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": -111.4172134399414,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": -111.4172134399414,
+          "right": 1000.4659729003906,
+          "bottom": -33.42927551269531,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": " Sci-Fi Archives - Free PBR MaterialsTake a look a",
+    "class": "cm-line slc-block-line slc-card-line itgl-colored",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": -33.42927551269531,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": -33.42927551269531,
+      "right": 1000.4659729003906,
+      "bottom": 44.55866241455078,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Sci-Fi Archives - Free PBR Materials",
+        "url": "https://freepbr.com/c/sci-fi/",
+        "rect": {
+          "x": 376.6447448730469,
+          "y": -28.44024085998535,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": -28.44024085998535,
+          "right": 896.6419982910156,
+          "bottom": 39.55592155456543,
+          "left": 376.6447448730469
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line itgl-colored",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": -33.42927551269531,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": -33.42927551269531,
+          "right": 1000.4659729003906,
+          "bottom": 44.55866241455078,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": " Inspector Button Pro - Editor Buttons With Parame",
+    "class": "cm-line slc-block-line slc-card-line itgl-colored",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 44.55866241455078,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": 44.55866241455078,
+      "right": 1000.4659729003906,
+      "bottom": 122.54660034179688,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Inspector Button Pro - Editor Buttons With Parameters | Utilities Tools | Unity Asset Store",
+        "url": "https://assetstore.unity.com/packages/tools/utilities/inspector-button-pro-editor-buttons-with-parameters-151474?aid=1101l9Bhe&utm_campaign=unity_affiliate&utm_medium=affiliate&utm_source=partnerize-linkmaker",
+        "rect": {
+          "x": 376.6447448730469,
+          "y": 49.54769515991211,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 49.54769515991211,
+          "right": 896.6419982910156,
+          "bottom": 117.54385757446289,
+          "left": 376.6447448730469
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line itgl-colored",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 44.55866241455078,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": 44.55866241455078,
+          "right": 1000.4659729003906,
+          "bottom": 122.54660034179688,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": " FabFab is a digital marketplace that offers creat",
+    "class": "cm-line slc-block-line slc-card-line itgl-colored",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 122.54660034179688,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": 122.54660034179688,
+      "right": 1000.4659729003906,
+      "bottom": 200.53453826904297,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Fab",
+        "url": "https://www.unrealengine.com/marketplace/en-US/product/card-back-pack",
+        "rect": {
+          "x": 376.6447448730469,
+          "y": 127.53563690185547,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 127.53563690185547,
+          "right": 896.6419982910156,
+          "bottom": 195.53179931640625,
+          "left": 376.6447448730469
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line itgl-colored",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 122.54660034179688,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": 122.54660034179688,
+          "right": 1000.4659729003906,
+          "bottom": 200.53453826904297,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": " Aus der Community Unity3D auf RedditEntdecke dies",
+    "class": "cm-line slc-block-line slc-card-line itgl-footer itgl-colored",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 200.53453063964844,
+      "width": 628.2072143554688,
+      "height": 87.96601104736328,
+      "top": 200.53453063964844,
+      "right": 1000.4659729003906,
+      "bottom": 288.5005416870117,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Aus der Community Unity3D auf Reddit",
+        "url": "https://www.reddit.com/r/Unity3D/comments/1m8qfu/hearthstone_card_highlights/",
+        "rect": {
+          "x": 376.6447448730469,
+          "y": 205.52357482910156,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 205.52357482910156,
+          "right": 896.6419982910156,
+          "bottom": 273.51973724365234,
+          "left": 376.6447448730469
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line itgl-footer itgl-colored",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 200.53453063964844,
+          "width": 628.2072143554688,
+          "height": 87.96601104736328,
+          "top": 200.53453063964844,
+          "right": 1000.4659729003906,
+          "bottom": 288.5005416870117,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": "",
+    "class": "cm-line",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 288.50054931640625,
+      "width": 628.2072143554688,
+      "height": 23.98574447631836,
+      "top": 288.50054931640625,
+      "right": 1000.4659729003906,
+      "bottom": 312.4862937927246,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "- (Selbstgemachter) Spiegel der leuchtet (led stre",
+    "class": "cm-line HyperMD-list-line HyperMD-list-line-1",
+    "hasCard": false,
+    "hasPill": true,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 312.4862976074219,
+      "width": 628.2072143554688,
+      "height": 74.34210205078125,
+      "top": 312.4862976074219,
+      "right": 1000.4659729003906,
+      "bottom": 386.8283996582031,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "-  Utensilien",
+    "class": "cm-line HyperMD-list-line HyperMD-list-line-1",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 386.8283996582031,
+      "width": 628.2072143554688,
+      "height": 29.002193450927734,
+      "top": 386.8283996582031,
+      "right": 1000.4659729003906,
+      "bottom": 415.83059310913086,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "\t Küchenwaage Digital,Digitale Küchen mit 2 Plattf",
+    "class": "cm-line slc-list-line HyperMD-list-line HyperMD-list-line-2 HyperMD-task-line",
+    "hasCard": false,
+    "hasPill": true,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 415.8305969238281,
+      "width": 628.2072143554688,
+      "height": 26.37061309814453,
+      "top": 415.8305969238281,
+      "right": 1000.4659729003906,
+      "bottom": 442.20121002197266,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "\t Teigschüssel",
+    "class": "cm-line HyperMD-list-line HyperMD-list-line-2 HyperMD-task-line",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 442.2012023925781,
+      "width": 628.2072143554688,
+      "height": 26.37061309814453,
+      "top": 442.2012023925781,
+      "right": 1000.4659729003906,
+      "bottom": 468.57181549072266,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "\t\tMorvexa Teigschüssel aus Glas mit PP Deckel für ",
+    "class": "cm-line slc-block-line slc-card-line HyperMD-list-line HyperMD-list-line-1 HyperMD-list-line-nobullet",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 468.5718078613281,
+      "width": 628.2072143554688,
+      "height": 79.16666412353516,
+      "top": 468.5718078613281,
+      "right": 1000.4659729003906,
+      "bottom": 547.7384719848633,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Morvexa Teigschüssel aus Glas mit PP Deckel für Pizzateig Salat Backen | Borosilikat, Rühren Fermentation Servieren, 2300 ml, hitzefest, klarer Korpus, tiefe Form, glatte Oberfläche, Kühlschrank : Am…",
+        "url": "https://www.amazon.de/Morvexa-Teigsch%C3%BCssel-Borosilikat-Fermentation-K%C3%BChlschrank/dp/B0GYXQHY3K/ref=sxin_12_sbv_search_btf?aref=m3QsOkw0xp&content-id=amzn1.sym.676e374c-d550-442f-95c0-41f784f94691%3Aamzn1.sym.676e374c-d550-442f-95c0-41f784f94691&cv_ct_cx=back+sch%C3%BCssel+deckel&keywords=back+sch%C3%BCssel+deckel&pd_rd_i=B0GYXQHY3K&pd_rd_r=d7c15b26-20bd-4569-b4ac-3a56badfaef1&pd_rd_w=cSXOB&pd_rd_wg=huS4t&pf_rd_p=676e374c-d550-442f-95c0-41f784f94691&pf_rd_r=9GE13G338MPSH3NYC9KB&qid=1793444882&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sr=1-1-9131241a-a358-4619-a7b8-0f5a65d91d81",
+        "rect": {
+          "x": 444.2708435058594,
+          "y": 473.56085205078125,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 473.56085205078125,
+          "right": 964.2680969238281,
+          "bottom": 541.557014465332,
+          "left": 444.2708435058594
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line HyperMD-list-line HyperMD-list-line-1 HyperMD-list-line-nobullet",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 468.5718078613281,
+          "width": 628.2072143554688,
+          "height": 79.16666412353516,
+          "top": 468.5718078613281,
+          "right": 1000.4659729003906,
+          "bottom": 547.7384719848633,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": "",
+    "class": "cm-line",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 547.7384643554688,
+      "width": 628.2072143554688,
+      "height": 23.98574447631836,
+      "top": 547.7384643554688,
+      "right": 1000.4659729003906,
+      "bottom": 571.7242088317871,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "\tDiffusion Texture PaintingDiffusion Texture Paint",
+    "class": "cm-line slc-block-line slc-card-line",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 571.7242431640625,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": 571.7242431640625,
+      "right": 1000.4659729003906,
+      "bottom": 649.7121810913086,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Diffusion Texture Painting",
+        "url": "https://research.nvidia.com/labs/toronto-ai/DiffusionTexturePainting/",
+        "rect": {
+          "x": 408.2510986328125,
+          "y": 576.7132568359375,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 576.7132568359375,
+          "right": 928.2483520507812,
+          "bottom": 644.7094192504883,
+          "left": 408.2510986328125
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 571.7242431640625,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": 571.7242431640625,
+          "right": 1000.4659729003906,
+          "bottom": 649.7121810913086,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  },
+  {
+    "text": "",
+    "class": "cm-line",
+    "hasCard": false,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 649.712158203125,
+      "width": 628.2072143554688,
+      "height": 23.98574447631836,
+      "top": 649.712158203125,
+      "right": 1000.4659729003906,
+      "bottom": 673.6979026794434,
+      "left": 372.2587585449219
+    },
+    "cards": []
+  },
+  {
+    "text": "Unity Shader Graph - Terrain Scanner Effect Tutori",
+    "class": "cm-line slc-block-line slc-card-line",
+    "hasCard": true,
+    "hasPill": false,
+    "rect": {
+      "x": 372.2587585449219,
+      "y": 673.6979370117188,
+      "width": 628.2072143554688,
+      "height": 77.9879379272461,
+      "top": 673.6979370117188,
+      "right": 1000.4659729003906,
+      "bottom": 751.6858749389648,
+      "left": 372.2587585449219
+    },
+    "cards": [
+      {
+        "title": "Unity Shader Graph - Terrain Scanner Effect Tutorial",
+        "url": "https://www.youtube.com/watch?v=9DshpqhKDz0",
+        "rect": {
+          "x": 372.2587585449219,
+          "y": 678.6869506835938,
+          "width": 519.9972534179688,
+          "height": 67.99616241455078,
+          "top": 678.6869506835938,
+          "right": 892.2560119628906,
+          "bottom": 746.6831130981445,
+          "left": 372.2587585449219
+        },
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%",
+        "computedMinWidth": "0px",
+        "style": null,
+        "parentClass": "cm-line slc-block-line slc-card-line",
+        "parentRect": {
+          "x": 372.2587585449219,
+          "y": 673.6979370117188,
+          "width": 628.2072143554688,
+          "height": 77.9879379272461,
+          "top": 673.6979370117188,
+          "right": 1000.4659729003906,
+          "bottom": 751.6858749389648,
+          "left": 372.2587585449219
+        },
+        "parentWidth": "628.207px"
+      }
+    ]
+  }
+]

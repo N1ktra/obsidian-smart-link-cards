@@ -1,0 +1,57 @@
+[
+  {
+    "tag": "DIV",
+    "class": "cm-line slc-block-line slc-card-line itgl-colored",
+    "width": "574.698px",
+    "maxWidth": "none",
+    "styleMaxWidth": "",
+    "parentTag": "DIV",
+    "parentClass": "cm-content cm-lineWrapping",
+    "parentWidth": "574.698px",
+    "outerHTML": "<div class=\"cm-line slc-block-line slc-card-line itgl-colored\" dir=\"ltr\" style=\"text-indent: -4px; padding-inline-start: 4px; --itgl-callout-color: var(--callout-info);\"><span class=\"cm-indent-spacing"
+  },
+  {
+    "tag": "DIV",
+    "class": "slc-card slc-has-thumb",
+    "width": "519.997px",
+    "maxWidth": "100%",
+    "styleMaxWidth": "",
+    "parentTag": "DIV",
+    "parentClass": "cm-line slc-block-line slc-card-line itgl-colored",
+    "parentWidth": "574.698px",
+    "outerHTML": "<div class=\"slc-card slc-has-thumb\" role=\"link\" tabindex=\"0\" data-url=\"https://assetstore.unity.com/packages/tools/utilities/inspector-button-pro-editor-buttons-with-parameters-151474?aid=1101l9Bhe&am"
+  },
+  {
+    "tag": "DIV",
+    "class": "slc-card-body",
+    "width": "343.27px",
+    "maxWidth": "none",
+    "styleMaxWidth": "",
+    "parentTag": "DIV",
+    "parentClass": "slc-card slc-has-thumb",
+    "parentWidth": "519.997px",
+    "outerHTML": "<div class=\"slc-card-body\"><div class=\"slc-card-title\">Inspector Button Pro - Editor Buttons With Parameters | Utilities Tools | Unity Asset Store</div><div class=\"slc-card-desc\">Use the Inspector But"
+  },
+  {
+    "tag": "DIV",
+    "class": "slc-card-title",
+    "width": "343.27px",
+    "maxWidth": "none",
+    "styleMaxWidth": "",
+    "parentTag": "DIV",
+    "parentClass": "slc-card-body",
+    "parentWidth": "343.27px",
+    "outerHTML": "<div class=\"slc-card-title\">Inspector Button Pro - Editor Buttons With Parameters | Utilities Tools | Unity Asset Store</div>"
+  },
+  {
+    "tag": "DIV",
+    "class": "slc-card-desc",
+    "width": "343.27px",
+    "maxWidth": "none",
+    "styleMaxWidth": "",
+    "parentTag": "DIV",
+    "parentClass": "slc-card-body",
+    "parentWidth": "343.27px",
+    "outerHTML": "<div class=\"slc-card-desc\">Use the Inspector Button Pro - Editor Buttons With Parameters from Cyborg Assets on your next project. Find this utility tool &amp; more on the Unity Asset Store.</div>"
+  }
+]

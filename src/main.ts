@@ -72,6 +72,7 @@ export default class SmartLinkCardsPlugin extends Plugin {
 
 		this.registerEditorExtension(Prec.highest(createLivePreviewExtension(deps)));
 		this.registerMarkdownPostProcessor(createReadingModeProcessor(deps));
+
 		this.addSettingTab(new SmartLinkCardsSettingTab(this.app, this));
 
 		this.addCommand({

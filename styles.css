@@ -23,6 +23,7 @@ body {
 	box-sizing: border-box;
 	width: 520px;
 	max-width: 100%;
+	min-width: 0;
 	height: var(--slc-card-height);
 	min-height: var(--slc-card-height);
 	max-height: var(--slc-card-height);
@@ -268,12 +269,18 @@ body {
 }
 
 @media (max-width: 480px) {
+	.slc-card {
+		gap: 8px;
+	}
 	.slc-card-host {
 		display: none;
 	}
 	.slc-card-thumb {
-		flex: 0 0 85px;
-		width: 85px;
+		flex: 0 0 75px;
+		width: 75px;
+	}
+	.slc-card.slc-has-thumb .slc-card-icon {
+		margin-left: 8px;
 	}
 }
 
@@ -287,9 +294,27 @@ body {
 	white-space: pre !important;
 }
 
+/* Reading mode: cards inside list items */
+.markdown-rendered li.slc-card-item,
+.markdown-rendered li:has(> .slc-card) {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start !important;
+	max-width: 100%;
+}
+
+.markdown-rendered li.slc-card-item .slc-card,
+.markdown-rendered li:has(> .slc-card) .slc-card {
+	max-width: 100%;
+	min-width: 0;
+	flex: 0 1 520px;
+	margin-left: 0 !important;
+	margin-right: auto !important;
+}
+
 /* While the card is shown in Live Preview, hide leftover external-link icon widgets on that line. */
-.markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], [class*="formatting"]),
-.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], [class*="formatting"]) {
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet),
+.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet) {
 	display: none !important;
 }
 
@@ -321,7 +346,8 @@ body {
 	height: var(--slc-pill-height);
 	min-height: var(--slc-pill-height);
 	max-height: var(--slc-pill-height);
-	max-width: calc(100% - 2rem);
+	max-width: 100%;
+	min-width: 0;
 	padding: 1px 8px 2px 6px;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: var(--slc-pill-radius);

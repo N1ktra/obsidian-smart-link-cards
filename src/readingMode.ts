@@ -190,6 +190,10 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 				removeAdjacentBreak(anchor.previousSibling, "prev");
 				removeAdjacentBreak(anchor.nextSibling, "next");
 				removeAdjacentLeftoverIcons(anchor);
+				const standaloneLi = getListItemForStandaloneAnchor(anchor);
+				if (standaloneLi) {
+					standaloneLi.classList.add("slc-card-item");
+				}
 			} else {
 				const standaloneLi = getListItemForStandaloneAnchor(anchor);
 				if (standaloneLi) {

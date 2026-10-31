@@ -1,0 +1,232 @@
+[
+  {
+    "lineClass": "cm-line slc-block-line slc-card-line itgl-colored",
+    "lineText": " Inspector Button Pro - Editor Buttons W",
+    "lineWidth": 574.698486328125,
+    "innerHTML": "<span class=\"cm-indent-spacing\"> </span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><div class=\"slc-card slc-has-thumb\" role=\"link\" tabindex=\"0\" data-url=\"https://assetstore.unity.com/packages/tools/utilities/inspector-button-pro-editor-buttons-with-parameters-151474?aid=1101l9Bhe&amp;utm_campaign=unity_affiliate&amp;utm_medium=affiliate&amp;utm_source=partnerize-linkmaker\" aria-label=\"https://assetstore.unity.com/packages/tools/utilities/inspector-button-pro-editor-buttons-with-parameters-151474?aid=1101l9Bhe&amp;utm_campaign=unity_affiliate&amp;utm_medium=affiliate&amp;utm_source=partnerize-linkmaker\" data-tooltip-position=\"top\" contenteditable=\"false\" style=\"--slc-indent: calc(1 * 1ch);\"><div class=\"slc-card-icon\"><img alt=\"\" width=\"24\" height=\"24\" src=\"data:image/png;base64,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\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></div><div class=\"slc-card-body\"><div class=\"slc-card-title\">Inspector Button Pro - Editor Buttons With Parameters | Utilities Tools | Unity Asset Store</div><div class=\"slc-card-desc\">Use the Inspector Button Pro - Editor Buttons With Parameters from Cyborg Assets on your next project. Find this utility tool &amp; more on the Unity Asset Store.</div><div class=\"slc-card-host\">assetstore.unity.com</div></div><div class=\"slc-card-thumb\"><img class=\"slc-card-thumb-img slc-loaded\" alt=\"\" src=\"https://assetstorev1-prd-cdn.unity3d.com/key-image/fa2f2c04-5c5b-4892-90cf-8cb65d348215.png?v=1\" loading=\"lazy\" decoding=\"async\" draggable=\"false\" data-src=\"https://assetstorev1-prd-cdn.unity3d.com/key-image/fa2f2c04-5c5b-4892-90cf-8cb65d348215.png?v=1\"></div><div class=\"slc-card-edit clickable-icon\" aria-label=\"Edit link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit-3\"><path d=\"M13 21h8\"></path><path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"></path></svg></div></div><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><span class=\"cm-formatting cm-formatting-link-string cm-string cm-url external-link\" contenteditable=\"false\"></span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\">",
+    "children": [
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-indent-spacing",
+        "width": 4.385964870452881,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "DIV",
+        "className": "slc-card slc-has-thumb",
+        "width": 519.9972534179688,
+        "style": "--slc-indent: calc(1 * 1ch);",
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-formatting cm-formatting-link-string cm-string cm-url external-link",
+        "width": 0,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      }
+    ]
+  },
+  {
+    "lineClass": "cm-line slc-block-line slc-card-line itgl-colored",
+    "lineText": " FabFab is a digital marketplace that of",
+    "lineWidth": 574.698486328125,
+    "innerHTML": "<span class=\"cm-indent-spacing\"> </span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><div class=\"slc-card\" role=\"link\" tabindex=\"0\" data-url=\"https://www.unrealengine.com/marketplace/en-US/product/card-back-pack\" aria-label=\"https://www.unrealengine.com/marketplace/en-US/product/card-back-pack\" data-tooltip-position=\"top\" contenteditable=\"false\" style=\"--slc-indent: calc(1 * 1ch);\"><div class=\"slc-card-icon\"><img alt=\"\" width=\"24\" height=\"24\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAM1BMVEVHcEwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADbQS4qAAAAEHRSTlMAMaXgZVAQ0vZB6nMhtsaN32lpwAAAAmdJREFUWIWlV9m2hSAITXPKKf//a69Z3QTR6sRTyyVbhg3BNHVEMek4jzqGsLqF+d69jgiubarEzFyox9oyJlI0e4TBNK2+2RGWL+qHFWN9bsb62Qo+UF/snfomc9cPefv8LlbQ+usz9U3Wj/opuY/6hA3ynX5KEsWfip+dB1E1kBBE/uLC7CgtutbnzeM5Sn4mtML1XTGK4Ze4J61apapiXTmB+G9KgBxh1BTqk/k/guhmoapCNV2MQrk6MwGv2v3QA7OMo3IVFWGAOUoFhlASL2XZowD8ughyHFspuN07IsP6KZRzaNWVmpWfJ6yT7JQ2HwQIQN19BbSJ4oXAuKBGRG0nwZZUyARxJwLgiDXOdhGtIG5O4bIyBKAPAKpgMxsBrixtwT0HSAtgrGHlkn4B4EAniqr4M78A4IBGYVfpAFBBzCmqAWJ8DRABv48W9gZA417wzYIfAAKqxR8AiBJ7A7A2re8eANSUo+gxBjCg/uXE2u49BIiqdjoXk2rziADmA6DUba5tcNVTjeoEkKebu/hgo0C/cT6hlgYApq3X6GugUduY54HLpd01ANdv04tmQoUGlyNIJa2txEqVwKRx4swOZ0mUs/0plAczmquhfoejprFBHE7hOfL/IqICngOzj8UqPEdewW4mJF274XarPCZM7Ssx4vjq/Q3SNZQHQzPRl6JgSrWDCuEA6USxUUfenT9xqFtC30jDtpejLjEsd52lhBz4X9hAvF8S9nDhMN1qY519D4oelZv7tnRlWT6ufdN4c4z36ptI4nd36zwSweG2YjTv7Hpd8Xn9X0PY9n8ulv7a/QfQ0JwQnMfQ6QAAAABJRU5ErkJggg==\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></div><div class=\"slc-card-body\"><div class=\"slc-card-title\">Fab</div><div class=\"slc-card-desc\">Fab is a digital marketplace that offers creators a single destination to discover, share, buy and sell high quality, real-time-ready game assets, environments, VFX, audio, animations, characters, plug-ins, and more.</div></div><div class=\"slc-card-host\">unrealengine.com</div><div class=\"slc-card-edit clickable-icon\" aria-label=\"Edit link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit-3\"><path d=\"M13 21h8\"></path><path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"></path></svg></div></div><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><span class=\"cm-formatting cm-formatting-link-string cm-string cm-url external-link\" contenteditable=\"false\"></span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\">",
+    "children": [
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-indent-spacing",
+        "width": 4.385964870452881,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "DIV",
+        "className": "slc-card",
+        "width": 519.9972534179688,
+        "style": "--slc-indent: calc(1 * 1ch);",
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-formatting cm-formatting-link-string cm-string cm-url external-link",
+        "width": 0,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      }
+    ]
+  },
+  {
+    "lineClass": "cm-line slc-block-line slc-card-line itgl-footer itgl-colored",
+    "lineText": " Aus der Community Unity3D auf RedditEnt",
+    "lineWidth": 574.698486328125,
+    "innerHTML": "<span class=\"cm-indent-spacing\"> </span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><div class=\"slc-card slc-has-thumb\" role=\"link\" tabindex=\"0\" data-url=\"https://www.reddit.com/r/Unity3D/comments/1m8qfu/hearthstone_card_highlights/\" aria-label=\"https://www.reddit.com/r/Unity3D/comments/1m8qfu/hearthstone_card_highlights/\" data-tooltip-position=\"top\" contenteditable=\"false\" style=\"--slc-indent: calc(1 * 1ch);\"><div class=\"slc-card-icon\"><img alt=\"\" width=\"24\" height=\"24\" src=\"data:image/png;base64,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\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></div><div class=\"slc-card-body\"><div class=\"slc-card-title\">Aus der Community Unity3D auf Reddit</div><div class=\"slc-card-desc\">Entdecke diesen Beitrag und mehr aus der Community Unity3D</div><div class=\"slc-card-host\">reddit.com</div></div><div class=\"slc-card-thumb\"><img class=\"slc-card-thumb-img slc-loaded\" alt=\"\" src=\"https://share.redd.it/preview/post/1m8qfu\" loading=\"lazy\" decoding=\"async\" draggable=\"false\" data-src=\"https://share.redd.it/preview/post/1m8qfu\"></div><div class=\"slc-card-edit clickable-icon\" aria-label=\"Edit link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit-3\"><path d=\"M13 21h8\"></path><path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"></path></svg></div></div><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><span class=\"cm-formatting cm-formatting-link-string cm-string cm-url external-link\" contenteditable=\"false\"></span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\">",
+    "children": [
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-indent-spacing",
+        "width": 4.385964870452881,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "DIV",
+        "className": "slc-card slc-has-thumb",
+        "width": 519.9972534179688,
+        "style": "--slc-indent: calc(1 * 1ch);",
+        "computedWidth": "519.997px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-formatting cm-formatting-link-string cm-string cm-url external-link",
+        "width": 0,
+        "style": null,
+        "computedWidth": "auto",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      }
+    ]
+  },
+  {
+    "lineClass": "cm-line slc-block-line slc-card-line HyperMD-list-line HyperMD-list-line-1 HyperMD-list-line-nobullet",
+    "lineText": "\t\tMorvexa Teigschüssel aus Glas mit PP D",
+    "lineWidth": 574.698486328125,
+    "innerHTML": "<span class=\"cm-hmd-list-indent cm-hmd-list-indent-1\"><span class=\"cm-indent\">\t</span><span class=\"cm-indent\">\t</span></span><img class=\"cm-widgetBuffer\" aria-hidden=\"true\"><div class=\"slc-card slc-has-thumb\" role=\"link\" tabindex=\"0\" data-url=\"https://www.amazon.de/Morvexa-Teigsch%C3%BCssel-Borosilikat-Fermentation-K%C3%BChlschrank/dp/B0GYXQHY3K/ref=sxin_12_sbv_search_btf?aref=m3QsOkw0xp&amp;content-id=amzn1.sym.676e374c-d550-442f-95c0-41f784f94691%3Aamzn1.sym.676e374c-d550-442f-95c0-41f784f94691&amp;cv_ct_cx=back+sch%C3%BCssel+deckel&amp;keywords=back+sch%C3%BCssel+deckel&amp;pd_rd_i=B0GYXQHY3K&amp;pd_rd_r=d7c15b26-20bd-4569-b4ac-3a56badfaef1&amp;pd_rd_w=cSXOB&amp;pd_rd_wg=huS4t&amp;pf_rd_p=676e374c-d550-442f-95c0-41f784f94691&amp;pf_rd_r=9GE13G338MPSH3NYC9KB&amp;qid=1793444882&amp;sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&amp;sr=1-1-9131241a-a358-4619-a7b8-0f5a65d91d81\" aria-label=\"https://www.amazon.de/Morvexa-Teigsch%C3%BCssel-Borosilikat-Fermentation-K%C3%BChlschrank/dp/B0GYXQHY3K/ref=sxin_12_sbv_search_btf?aref=m3QsOkw0xp&amp;content-id=amzn1.sym.676e374c-d550-442f-95c0-41f784f94691%3Aamzn1.sym.676e374c-d550-442f-95c0-41f784f94691&amp;cv_ct_cx=back+sch%C3%BCssel+deckel&amp;keywords=back+sch%C3%BCssel+deckel&amp;pd_rd_i=B0GYXQHY3K&amp;pd_rd_r=d7c15b26-20bd-4569-b4ac-3a56badfaef1&amp;pd_rd_w=cSXOB&amp;pd_rd_wg=huS4t&amp;pf_rd_p=676e374c-d550-442f-95c0-41f784f94691&amp;pf_rd_r=9GE13G338MPSH3NYC9KB&amp;qid=1793444882&amp;sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&amp;sr=1-1-9131241a-a358-4619-a7b8-0f5a65d91d81\" data-tooltip-position=\"top\" contenteditable=\"false\" style=\"--slc-indent: calc(2 * var(--tab-size, 4) * 1ch);\"><div class=\"slc-card-icon\"><img alt=\"\" width=\"24\" height=\"24\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAACWUlEQVRoge2aP24aQRSHvzeKpXTcwCnXckNukLV7Q0UVu4E7uHEkoHAK3wEnUoQbKkhqTG4Qp0ChC0fYjirjYnay62XBsPwZVtqvGfE0Gn6/9+bNIHaFBeg6ZYQamnPgFCgtmrsjAmCMMETTk3ue0iZJMqAbvENzC3zctcI16TLjRh6YxoMvDOgGF2i+sf9sr0qA5lK+8MMG/hsIxQ/c6FoTzYU1IQD6imOO+M3hZj5JwIyyPDBVABzxmfyIByjxllsA0XXKwC/HgrLyXiHUXKvIjFBT4TmfTzTnCnNJ5ZVTRb6aN0lJuVawKYUB1xQGXFMYcE3uDbxxLWAhng8nPngfYPLTxPqtuWnzBqrhpD8jmIx2I24Z1RZUmi9jnm/GFE2i6+i5RTphaNBOdb1T4gmEqAqen6onvQfuzsxYacL1Y7ToPui3IpGT0asJTK8AGMfXj9HnQTv6gl3i+VBtmvHuzJiwO6Ix9yfKkiaejMwC1oTdl5WmMbPNHok3rN3vg7ZZ31bfJjDB4grESWssy2QUnRLLTFlhEIlNxu16/Xa0Tkcv7cXVDECUiUVGtkFSqN1OtidTWN1AnGUVWRdbwYy9lc2AxVYlvndXwYreQh9tZiANa+TEj2L2TIetX47bN7Bncv9jrjDgmsKAawoDrlGYp4F5JVDA2LWKDRgrhKFrFZkRhgpNz7WOzGh6KnwC3nWtJQNduefJnELCDflq5oB/fILwGJUOU4Qrt5rWQHMpX/kLsXtAOnxHqHDYlQjiT+khcZGFJsocZk90mVGOi4eUt1UseXnd5hk+j8s+j9cPIQAAAABJRU5ErkJggg==\" loading=\"lazy\" decoding=\"async\" draggable=\"false\"></div><div class=\"slc-card-body\"><div class=\"slc-card-title\">Morvexa Teigschüssel aus Glas mit PP Deckel für Pizzateig Salat Backen | Borosilikat, Rühren Fermentation Servieren, 2300 ml, hitzefest, klarer Korpus, tiefe Form, glatte Oberfläche, Kühlschrank : Am…</div><div class=\"slc-card-desc\">Morvexa Teigschüssel aus Glas mit PP Deckel für Pizzateig Salat Backen | Borosilikat, Rühren Fermentation Servieren, 2300 ml, hitzefest, klarer Korpus, tiefe Form, glatte Oberfläche, Kühlschrank : Amazon.de: Gewerbe, Industrie &amp; Wissenschaft</div><div class=\"slc-card-host\">amazon.de</div></div><div class=\"slc-card-thumb\"><img class=\"slc-card-thumb-img slc-loaded\" alt=\"\" src=\"https://m.media-amazon.com/images/I/618Opk3e+wL._AC_SL1500_.jpg\" loading=\"lazy\" decoding=\"async\" draggable=\"false\" data-src=\"https://m.media-amazon.com/images/I/618Opk3e+wL._AC_SL1500_.jpg\"></div><div class=\"slc-card-edit clickable-icon\" aria-label=\"Edit link\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-edit-3\"><path d=\"M13 21h8\"></path><path d=\"M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z\"></path></svg></div></div><img class=\"cm-widgetBuffer\" aria-hidden=\"true\">",
+    "children": [
+      {
+        "nodeType": 1,
+        "nodeName": "SPAN",
+        "className": "cm-hmd-list-indent cm-hmd-list-indent-1",
+        "width": 72.0120620727539,
+        "style": null,
+        "computedWidth": "72.0121px",
+        "computedMaxWidth": "none"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "DIV",
+        "className": "slc-card slc-has-thumb",
+        "width": 502.7001037597656,
+        "style": "--slc-indent: calc(2 * var(--tab-size, 4) * 1ch);",
+        "computedWidth": "502.7px",
+        "computedMaxWidth": "100%"
+      },
+      {
+        "nodeType": 1,
+        "nodeName": "IMG",
+        "className": "cm-widgetBuffer",
+        "width": 0,
+        "style": null,
+        "computedWidth": "0px",
+        "computedMaxWidth": "100%"
+      }
+    ]
+  }
+]
