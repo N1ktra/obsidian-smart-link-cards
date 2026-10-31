@@ -30,13 +30,22 @@ function isBlank(node: Node | null): boolean {
 	return !!node && node.nodeType === Node.TEXT_NODE && !(node.textContent ?? "").trim();
 }
 
+function isInlineWhitespace(node: Node | null): boolean {
+	return (
+		!!node &&
+		node.nodeType === Node.TEXT_NODE &&
+		!(node.textContent ?? "").trim() &&
+		!(node.textContent ?? "").includes("\n")
+	);
+}
+
 function isBr(node: Node | null): node is HTMLBRElement {
 	return !!node && node.nodeName === "BR";
 }
 
 function isIgnoredSibling(node: Node | null): boolean {
 	if (!node) return false;
-	if (isBlank(node)) return true;
+	if (isInlineWhitespace(node)) return true;
 	if (node instanceof HTMLElement) {
 		if (node.tagName === "SVG") return true;
 		if (
@@ -62,6 +71,9 @@ function getMeaningfulSibling(node: Node | null, direction: "prev" | "next"): No
 function isBlockBoundary(node: Node | null): boolean {
 	if (node === null) return true;
 	if (isBr(node)) return true;
+	if (node.nodeType === Node.TEXT_NODE && (node.textContent ?? "").includes("\n")) {
+		return true;
+	}
 	if (node instanceof HTMLElement) {
 		if (node.classList.contains("slc-card") || node.querySelector(".slc-card")) {
 			return true;
@@ -70,11 +82,12 @@ function isBlockBoundary(node: Node | null): boolean {
 	return false;
 }
 
-/** True if the anchor occupies a "line" of its own inside a paragraph. */
-function isStandaloneAnchor(anchor: HTMLElement): boolean {
+/** True if the anchor occupies a "line" of its own inside a paragraph, list item, or container. */
+export function isStandaloneAnchor(anchor: HTMLElement): boolean {
 	const parent = anchor.parentElement;
-	if (!parent || parent.tagName !== "P") return false;
-	if (anchor.closest("li, td, th, h1, h2, h3, h4, h5, h6, table")) return false;
+	if (!parent) return false;
+	if (parent.tagName !== "P" && parent.tagName !== "LI" && parent.tagName !== "DIV") return false;
+	if (anchor.closest("td, th, h1, h2, h3, h4, h5, h6, table")) return false;
 
 	const prev = getMeaningfulSibling(anchor.previousSibling, "prev");
 	const next = getMeaningfulSibling(anchor.nextSibling, "next");
@@ -92,7 +105,7 @@ function getListItemForStandaloneAnchor(anchor: HTMLElement): HTMLElement | null
 
 function removeAdjacentBreak(node: Node | null, direction: "prev" | "next"): void {
 	let current = node;
-	while (current && isBlank(current)) {
+	while (current && isInlineWhitespace(current)) {
 		current = direction === "prev" ? current.previousSibling : current.nextSibling;
 	}
 	if (isBr(current)) current.remove();
@@ -143,7 +156,7 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 		const used = new Set<DocumentLink>();
 
 		for (const anchor of anchors) {
-			if (anchor.closest("code, pre, .slc-card, .slc-pill, .internal-embed")) continue;
+			if (anchor.closest("code, pre, .slc-card, .slc-pill")) continue;
 			if (anchor.querySelector("img")) continue; // badges / image links
 
 			const href = anchor.getAttribute("href") ?? "";
@@ -166,7 +179,7 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 				if (!looksBare) overrides.title = stripInlineMarkdown(text);
 			}
 
-			let mode: DisplayMode = isStandaloneAnchor(anchor) ? "block" : "inline";
+			let mode: DisplayMode = (source?.mode === "block" || isStandaloneAnchor(anchor)) ? "block" : "inline";
 			if (mode === "block" && !settings.enableBlockCards) mode = "inline";
 			if (mode === "inline" && !settings.enableInlinePills) continue;
 
