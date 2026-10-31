@@ -164,23 +164,35 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 3px;
+	width: 24px;
+	height: 24px;
+	padding: 4px;
 	border-radius: var(--radius-s, 4px);
-	background-color: var(--background-secondary);
-	color: var(--text-muted);
+	background-color: var(--background-primary) !important;
+	color: var(--text-muted) !important;
+	border: 1px solid var(--background-modifier-border);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 	opacity: 0;
-	transition: opacity 120ms ease, background-color 120ms ease, color 120ms ease;
-	z-index: 2;
+	transition: opacity 120ms ease, color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+	z-index: 3;
+	cursor: pointer;
 }
 
-.slc-card-edit:hover {
-	background-color: var(--background-modifier-hover);
-	color: var(--text-normal);
+.slc-card-edit:hover,
+.slc-card-edit.clickable-icon:hover {
+	/* Background remains 100% solid and same color (no gray change, no transparency) */
+	background-color: var(--background-primary) !important;
+	color: var(--text-normal) !important;
+	border-color: var(--text-muted);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
+	transform: none !important;
 }
 
 .slc-card-edit svg {
 	width: 14px;
 	height: 14px;
+	stroke: currentColor !important;
+	fill: none !important;
 }
 
 .slc-card:hover .slc-card-edit {
@@ -252,16 +264,7 @@ body {
 }
 
 .slc-card.slc-has-thumb .slc-card-edit {
-	background-color: rgba(var(--mono-rgb-0, 0, 0), 0.6);
-	backdrop-filter: blur(4px);
-	-webkit-backdrop-filter: blur(4px);
-	color: var(--text-on-accent, #ffffff);
-	border-radius: var(--radius-s, 4px);
-}
-
-.slc-card.slc-has-thumb .slc-card-edit:hover {
-	background-color: rgba(var(--mono-rgb-0, 0, 0), 0.85);
-	color: var(--text-on-accent, #ffffff);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
 }
 
 @media (max-width: 480px) {
