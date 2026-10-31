@@ -372,7 +372,7 @@ export function findLinksInLine(line: string): ParsedLink[] {
 
 /**
  * Returns the link if it stands completely alone on its line
- * (only whitespace before/after, at most 3 leading spaces), otherwise `null`.
+ * (only whitespace before/after, optionally indented with spaces/tabs or in quotes), otherwise `null`.
  */
 export function getStandaloneLink(line: string, links: ParsedLink[] = findLinksInLine(line)): ParsedLink | null {
 	if (links.length !== 1) return null;
@@ -380,8 +380,7 @@ export function getStandaloneLink(line: string, links: ParsedLink[] = findLinksI
 	const before = line.slice(0, link.from);
 	const after = line.slice(link.to);
 	if (after.trim() !== "") return null;
-	if (/^( {4,}|\t)/.test(before)) return null; // indented code block
-	// Allow empty before or markdown quote/callout prefixes (e.g. "> ", "> > ")
+	// Allow empty before, arbitrary leading indentation (spaces/tabs), or markdown quote/callout prefixes (e.g. "> ", "> > ")
 	if (!/^(\s*>)*\s*$/.test(before)) return null;
 	return link;
 }

@@ -229,8 +229,8 @@ function buildDecorations(view: EditorView, host: LivePreviewHost): DecorationSe
 						continue;
 					}
 					decorations.push(cardLineDecoration.range(line.from));
-					// Replace the entire line (or link range if line starts with a quote prefix to avoid CM6 decoration collisions).
-					const replaceFrom = line.text.trimStart().startsWith(">") ? absFrom : line.from;
+					// Replace from the start of the link so any leading indentation (spaces/tabs) or quote markers are preserved.
+					const replaceFrom = absFrom;
 					decorations.push(
 						Decoration.replace({ widget: new LinkWidget(link, "block", host, version) }).range(replaceFrom, line.to),
 					);

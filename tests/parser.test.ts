@@ -108,8 +108,14 @@ describe("block vs inline classification", () => {
 		expect(modes).toEqual(["inline", "inline"]);
 	});
 
-	it("does not treat indented (code) lines as block", () => {
-		expect(getStandaloneLink("    https://github.com")).toBeNull();
+	it("treats indented lines with spaces or tabs as block", () => {
+		expect(classifyLine("    https://github.com")[0].mode).toBe("block");
+		expect(classifyLine("\thttps://github.com")[0].mode).toBe("block");
+		expect(classifyLine("\t\t  [GitHub](https://github.com)")[0].mode).toBe("block");
+		expect(classifyLine("  \t  > https://github.com")[0].mode).toBe("block");
+		expect(getStandaloneLink("    https://github.com")).not.toBeNull();
+		expect(getStandaloneLink("\thttps://github.com")).not.toBeNull();
+		expect(getStandaloneLink("\t\t  https://github.com")).not.toBeNull();
 	});
 });
 

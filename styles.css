@@ -17,7 +17,7 @@ body {
 
 .slc-card {
 	position: relative;
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	gap: 12px;
 	box-sizing: border-box;
@@ -203,9 +203,13 @@ body {
 	min-height: calc(var(--slc-card-height) + 2 * var(--slc-card-gap));
 }
 
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line {
+	white-space: pre !important;
+}
+
 /* While the card is shown in Live Preview, hide leftover external-link icon widgets on that line. */
-.markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card),
-.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card) {
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], [class*="formatting"]),
+.markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], [class*="formatting"]) {
 	display: none !important;
 }
 
