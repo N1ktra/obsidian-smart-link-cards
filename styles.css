@@ -24,6 +24,7 @@ body {
 	width: 520px;
 	max-width: 100%;
 	min-width: 0;
+	flex: 0 1 520px;
 	height: var(--slc-card-height);
 	min-height: var(--slc-card-height);
 	max-height: var(--slc-card-height);
@@ -291,7 +292,26 @@ body {
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line {
+	display: flex !important;
+	align-items: center;
+	padding-inline-start: 0 !important;
+	padding-left: 0 !important;
+	text-indent: 0 !important;
+	max-width: 100%;
+	overflow-x: clip;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-hmd-list-indent,
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-indent,
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-tab {
 	white-space: pre !important;
+	flex-shrink: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-formatting-list,
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-formatting-task,
+.markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-list-bullet {
+	flex-shrink: 0;
 }
 
 /* Reading mode: cards inside list items */
