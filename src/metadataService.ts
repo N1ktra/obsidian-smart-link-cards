@@ -56,13 +56,15 @@ export class LinkMetadataService {
 
 	/**
 	 * Ensures metadata for the URL is available. Does nothing for fresh cache
-	 * hits; otherwise schedules a background fetch (deduplicated, rate-limited).
+	 * hits unless force=true; otherwise schedules a background fetch (deduplicated, rate-limited).
 	 */
-	request(url: string): void {
+	request(url: string, force = false): void {
 		const key = normalizeUrl(url);
-		if (this.isFresh(key) || this.inFlight.has(key)) return;
+		if (!force && this.isFresh(key)) return;
+		if (this.inFlight.has(key)) return;
 		const failedAt = this.failures.get(key);
-		if (failedAt !== undefined && this.now() - failedAt < this.failureCooldownMs) return;
+		if (!force && failedAt !== undefined && this.now() - failedAt < this.failureCooldownMs) return;
+		this.failures.delete(key);
 		this.inFlight.add(key);
 		this.queue.push(url.trim());
 		this.pump();

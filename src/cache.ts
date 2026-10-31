@@ -29,7 +29,7 @@ function isValidEntry(value: unknown): value is LinkMetadata {
 	if (!value || typeof value !== "object") return false;
 	const entry = value as Record<string, unknown>;
 	if (typeof entry.fetchedAt !== "number" || !Number.isFinite(entry.fetchedAt)) return false;
-	return ["title", "description", "faviconUrl"].every(
+	return ["title", "description", "faviconUrl", "imageUrl"].every(
 		(key) => entry[key] === undefined || typeof entry[key] === "string",
 	);
 }
@@ -40,6 +40,7 @@ function canonicalEntry(entry: LinkMetadata): LinkMetadata {
 	if (entry.title) result.title = entry.title;
 	if (entry.description) result.description = entry.description;
 	if (entry.faviconUrl) result.faviconUrl = entry.faviconUrl;
+	if (entry.imageUrl) result.imageUrl = entry.imageUrl;
 	return result;
 }
 

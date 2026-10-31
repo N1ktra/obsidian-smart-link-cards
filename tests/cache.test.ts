@@ -112,6 +112,17 @@ describe("LinkMetadataService", () => {
 		expect(storage.write).not.toHaveBeenCalled();
 	});
 
+	it("force request: refetches even when fresh in cache", async () => {
+		const { storage, cache, service, fetchMock } = await setup({
+			"https://a.com": { title: "Cached", fetchedAt: NOW },
+		});
+		expect(service.isFresh("https://a.com")).toBe(true);
+		service.request("https://a.com", true);
+		await service.idle();
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		expect(service.get("https://a.com")?.title).toBe("Fetched");
+	});
+
 	it("cache miss: fetches once (deduplicated), notifies and writes once", async () => {
 		const { storage, cache, service, fetchMock } = await setup();
 		const listener = vi.fn();

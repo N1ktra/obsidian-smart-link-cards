@@ -13,9 +13,31 @@ describe("resolveDisplay", () => {
 	const bare: LinkDescriptor = { url: "https://www.github.com/foo/", syntax: "bare", overrides: {} };
 
 	it("uses crawled metadata for bare URLs", () => {
-		const d = resolveDisplay(bare, "block", { title: "Foo", description: "Bar", fetchedAt: 1 }, settings);
-		expect(d).toMatchObject({ title: "Foo", description: "Bar", hostname: "github.com", loading: false, isManualDescription: false });
+		const d = resolveDisplay(
+			bare,
+			"block",
+			{ title: "Foo", description: "Bar", imageUrl: "https://example.com/thumb.jpg", fetchedAt: 1 },
+			settings,
+		);
+		expect(d).toMatchObject({
+			title: "Foo",
+			description: "Bar",
+			hostname: "github.com",
+			imageUrl: "https://example.com/thumb.jpg",
+			loading: false,
+			isManualDescription: false,
+		});
 		expect(d.iconCandidates[0]).toBe("https://www.google.com/s2/favicons?domain=github.com&sz=64");
+	});
+
+	it("respects showThumbnailInCards setting", () => {
+		const d = resolveDisplay(
+			bare,
+			"block",
+			{ title: "Foo", imageUrl: "https://example.com/thumb.jpg", fetchedAt: 1 },
+			{ ...settings, showThumbnailInCards: false },
+		);
+		expect(d.imageUrl).toBeUndefined();
 	});
 
 	it("falls back to a pretty URL while loading", () => {

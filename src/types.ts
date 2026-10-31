@@ -7,6 +7,7 @@ export interface LinkMetadata {
 	title?: string;
 	description?: string;
 	faviconUrl?: string;
+	imageUrl?: string;
 	/** Immutable timestamp (ms since epoch) of the successful fetch. */
 	fetchedAt: number;
 }

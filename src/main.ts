@@ -12,6 +12,7 @@ import { Prec } from "@codemirror/state";
 import { LinkCache, type CacheStorage } from "./cache";
 import { createLivePreviewExtension, refreshDecorationsEffect } from "./livePreview";
 import { LinkMetadataService } from "./metadataService";
+import { parseDocument } from "./parser";
 import { createReadingModeProcessor } from "./readingMode";
 import { clearIconCache } from "./render";
 import {
@@ -78,6 +79,18 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			callback: () => void this.clearCache(),
 		});
 
+		this.addCommand({
+			id: "refetch-active-note-links",
+			name: "Refetch all links in active note",
+			checkCallback: (checking: boolean) => {
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				if (!view) return false;
+				if (checking) return true;
+				void this.refetchActiveNoteLinks(view);
+				return true;
+			},
+		});
+
 		if (this.app.workspace.layoutReady) {
 			this.refreshViews(false);
 		} else {
@@ -141,6 +154,27 @@ export default class SmartLinkCardsPlugin extends Plugin {
 		clearIconCache();
 		this.refreshViews();
 		new Notice("Smart Link Cards: cache cleared.");
+	}
+
+	/** Refetches metadata for all web links in the active note, bypassing cache. */
+	async refetchActiveNoteLinks(view: MarkdownView): Promise<void> {
+		const text = view.editor.getValue();
+		const links = parseDocument(text);
+		const urls = Array.from(new Set(links.map((l) => l.url)));
+
+		if (urls.length === 0) {
+			new Notice("Smart Link Cards: No web links found in active note.");
+			return;
+		}
+
+		new Notice(`Smart Link Cards: Refetching ${urls.length} link${urls.length === 1 ? "" : "s"}…`);
+		for (const url of urls) {
+			this.service.request(url, true);
+		}
+
+		await this.service.idle();
+		this.refreshViews(true);
+		new Notice(`Smart Link Cards: Refreshed ${urls.length} link${urls.length === 1 ? "" : "s"}.`);
 	}
 
 	/** Re-renders all open Live Preview editors and Reading views. */

@@ -23,6 +23,8 @@ export interface DisplayData {
 	emoji?: string;
 	/** Ordered image URLs to try. */
 	iconCandidates: string[];
+	/** Webpage thumbnail/image (e.g. OpenGraph or Twitter image). */
+	imageUrl?: string;
 	/** True while metadata is still being fetched for the first time. */
 	loading: boolean;
 }
@@ -80,6 +82,7 @@ export function resolveDisplay(
 
 	const isManualDescription = overrides.description !== undefined;
 	const description = overrides.description ?? metadata?.description;
+	const imageUrl = settings.showThumbnailInCards !== false ? metadata?.imageUrl : undefined;
 
 	return {
 		url,
@@ -89,6 +92,7 @@ export function resolveDisplay(
 		hostname,
 		emoji,
 		iconCandidates: Array.from(new Set(candidates)),
+		imageUrl,
 		loading: !metadata && needsMetadata(link, mode, settings),
 	};
 }

@@ -42,6 +42,44 @@ describe("parseHtmlMetadata", () => {
 		expect(parseHtmlMetadata(html, "https://x.com").faviconUrl).toBe("https://cdn.x.com/a.png");
 	});
 
+	it("extracts OpenGraph and Twitter images as imageUrl", () => {
+		const ogHtml = `<head><meta property="og:image" content="/assets/cover.jpg"></head>`;
+		expect(parseHtmlMetadata(ogHtml, "https://blog.example.com/post").imageUrl).toBe(
+			"https://blog.example.com/assets/cover.jpg",
+		);
+
+		const twitterHtml = `<head><meta name="twitter:image" content="https://cdn.example.com/banner.png"></head>`;
+		expect(parseHtmlMetadata(twitterHtml, "https://example.com").imageUrl).toBe(
+			"https://cdn.example.com/banner.png",
+		);
+	});
+
+	it("extracts Amazon product image from landingImage tag or script data", () => {
+		const amazonHtml = `
+			<html>
+			<head><title>Morvexa Teigschüssel</title></head>
+			<body>
+				<img id="landingImage" src="https://m.media-amazon.com/images/I/low.jpg" data-old-hires="https://m.media-amazon.com/images/I/hires.jpg" />
+			</body>
+			</html>
+		`;
+		expect(parseHtmlMetadata(amazonHtml, "https://www.amazon.de/dp/B0GYXQHY3K").imageUrl).toBe(
+			"https://m.media-amazon.com/images/I/hires.jpg",
+		);
+
+		const amazonDynamicHtml = `
+			<html>
+			<head><title>Product</title></head>
+			<body>
+				<img id="landingImage" data-a-dynamic-image="{&quot;https://m.media-amazon.com/images/I/dynamic.jpg&quot;:[355,355]}" />
+			</body>
+			</html>
+		`;
+		expect(parseHtmlMetadata(amazonDynamicHtml, "https://www.amazon.de/dp/B0GYXQHY3K").imageUrl).toBe(
+			"https://m.media-amazon.com/images/I/dynamic.jpg",
+		);
+	});
+
 	it("returns an empty object for HTML without metadata", () => {
 		expect(parseHtmlMetadata("<html><body>nothing</body></html>", "https://x.com")).toEqual({});
 	});

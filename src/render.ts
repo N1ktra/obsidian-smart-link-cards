@@ -235,9 +235,52 @@ function renderCard(el: HTMLElement, data: DisplayData, options: MountOptions): 
 
 	let host = el.querySelector<HTMLElement>(".slc-card-host");
 	if (!host) {
-		host = el.createDiv({ cls: "slc-card-host", text: data.hostname });
+		host = createDiv({ cls: "slc-card-host" });
+	}
+	host.textContent = data.hostname;
+
+	let thumb = el.querySelector<HTMLElement>(".slc-card-thumb");
+	if (data.imageUrl) {
+		el.addClass("slc-has-thumb");
+		if (host.parentElement !== body) {
+			body.appendChild(host);
+		}
+		if (!thumb) {
+			thumb = el.createDiv({ cls: "slc-card-thumb" });
+		}
+		let img = thumb.querySelector<HTMLImageElement>("img");
+		if (!img || img.dataset.src !== data.imageUrl) {
+			thumb.empty();
+			img = thumb.createEl("img", {
+				cls: "slc-card-thumb-img",
+				attr: {
+					alt: "",
+					src: data.imageUrl,
+					loading: "lazy",
+					decoding: "async",
+					draggable: "false",
+				},
+			});
+			img.dataset.src = data.imageUrl;
+			img.onload = () => {
+				img?.addClass("slc-loaded");
+			};
+			img.onerror = () => {
+				thumb?.remove();
+				el.removeClass("slc-has-thumb");
+				if (host && host.parentElement !== el) {
+					const editBtn = el.querySelector(".slc-card-edit");
+					el.insertBefore(host, editBtn || null);
+				}
+			};
+		}
 	} else {
-		host.textContent = data.hostname;
+		el.removeClass("slc-has-thumb");
+		if (thumb) thumb.remove();
+		if (host.parentElement !== el) {
+			const editBtn = el.querySelector(".slc-card-edit");
+			el.insertBefore(host, editBtn || null);
+		}
 	}
 
 	if (options.onEdit && !el.querySelector(".slc-card-edit")) {

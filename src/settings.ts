@@ -15,6 +15,7 @@ import { FAVICON_PROVIDERS, type FaviconProvider } from "./favicon";
 export interface SmartLinkCardsSettings {
 	enableBlockCards: boolean;
 	enableInlinePills: boolean;
+	showThumbnailInCards: boolean;
 	showTitleForBareInlineUrls: boolean;
 	showDescriptionInInlinePills: boolean;
 	showManualDescriptionInInlinePills: boolean;
@@ -26,6 +27,7 @@ export interface SmartLinkCardsSettings {
 export const DEFAULT_SETTINGS: Readonly<SmartLinkCardsSettings> = Object.freeze({
 	enableBlockCards: true,
 	enableInlinePills: true,
+	showThumbnailInCards: true,
 	showTitleForBareInlineUrls: true,
 	showDescriptionInInlinePills: false,
 	showManualDescriptionInInlinePills: true,
@@ -53,6 +55,15 @@ export function getSettingDefinitions(actions: SettingActions): SettingDefinitio
 				type: "toggle",
 				key: "enableBlockCards",
 				defaultValue: DEFAULT_SETTINGS.enableBlockCards,
+			} satisfies SettingToggleControl<SettingKey>,
+		},
+		{
+			name: "Thumbnails in cards",
+			desc: "Show webpage thumbnail preview image when available on block cards.",
+			control: {
+				type: "toggle",
+				key: "showThumbnailInCards",
+				defaultValue: DEFAULT_SETTINGS.showThumbnailInCards,
 			} satisfies SettingToggleControl<SettingKey>,
 		},
 		{
