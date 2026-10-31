@@ -5,6 +5,7 @@ import {
 	TFile,
 	normalizePath,
 	type DataAdapter,
+	type MarkdownFileInfo,
 	type SettingDefinition,
 } from "obsidian";
 import type { EditorView } from "@codemirror/view";
@@ -83,13 +84,38 @@ export default class SmartLinkCardsPlugin extends Plugin {
 			id: "refetch-active-note-links",
 			name: "Refetch all links in active note",
 			checkCallback: (checking: boolean) => {
+				const file = this.app.workspace.getActiveFile();
 				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-				if (!view) return false;
+				if (!file && !view) return false;
 				if (checking) return true;
-				void this.refetchActiveNoteLinks(view);
+				void this.refetchActiveNoteLinks(file ?? view ?? undefined);
 				return true;
 			},
 		});
+
+		this.registerEvent(
+			this.app.workspace.on("file-menu", (menu, file) => {
+				if (file instanceof TFile && file.extension === "md") {
+					menu.addItem((item) => {
+						item
+							.setTitle("Smart Link Cards: Refetch all links")
+							.setIcon("refresh-cw")
+							.onClick(() => void this.refetchActiveNoteLinks(file));
+					});
+				}
+			}),
+		);
+
+		this.registerEvent(
+			this.app.workspace.on("editor-menu", (menu, editor, view) => {
+				menu.addItem((item) => {
+					item
+						.setTitle("Smart Link Cards: Refetch all links")
+						.setIcon("refresh-cw")
+						.onClick(() => void this.refetchActiveNoteLinks(view));
+				});
+			}),
+		);
 
 		if (this.app.workspace.layoutReady) {
 			this.refreshViews(false);
@@ -157,8 +183,29 @@ export default class SmartLinkCardsPlugin extends Plugin {
 	}
 
 	/** Refetches metadata for all web links in the active note, bypassing cache. */
-	async refetchActiveNoteLinks(view: MarkdownView): Promise<void> {
-		const text = view.editor.getValue();
+	async refetchActiveNoteLinks(fileOrView?: TFile | MarkdownView | MarkdownFileInfo | null): Promise<void> {
+		let text = "";
+		if (fileOrView instanceof TFile) {
+			text = await this.app.vault.read(fileOrView);
+		} else if (fileOrView instanceof MarkdownView) {
+			text = fileOrView.editor?.getValue() ?? (fileOrView.file ? await this.app.vault.read(fileOrView.file) : "");
+		} else if (fileOrView && "file" in fileOrView && fileOrView.file instanceof TFile) {
+			text = await this.app.vault.read(fileOrView.file);
+		} else {
+			const file = this.app.workspace.getActiveFile();
+			if (file) {
+				text = await this.app.vault.read(file);
+			} else {
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				text = view?.editor?.getValue() ?? "";
+			}
+		}
+
+		if (!text) {
+			new Notice("Smart Link Cards: No active note or file found.");
+			return;
+		}
+
 		const links = parseDocument(text);
 		const urls = Array.from(new Set(links.map((l) => l.url)));
 
