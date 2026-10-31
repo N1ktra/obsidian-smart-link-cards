@@ -80,6 +80,77 @@ describe("parseHtmlMetadata", () => {
 		);
 	});
 
+	it("extracts images from JSON-LD Schema (Yoast @graph, thumbnailUrl, etc.)", () => {
+		const yoastHtml = `
+			<html>
+			<head>
+				<script type="application/ld+json">
+					{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","thumbnailUrl":"https://example.com/thumb.jpg"}]}
+				</script>
+			</head>
+			</html>
+		`;
+		expect(parseHtmlMetadata(yoastHtml, "https://example.com").imageUrl).toBe("https://example.com/thumb.jpg");
+
+		const productJsonLd = `
+			<html>
+			<head>
+				<script type="application/ld+json">
+					{"@context":"https://schema.org/","@type":"Product","image":["https://cdn.example.com/product.png"]}
+				</script>
+			</head>
+			</html>
+		`;
+		expect(parseHtmlMetadata(productJsonLd, "https://example.com").imageUrl).toBe("https://cdn.example.com/product.png");
+	});
+
+	it("extracts WordPress featured image and tile image fallback", () => {
+		const wpHtml = `
+			<html><body>
+				<img src="/uploads/cover.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" />
+			</body></html>
+		`;
+		expect(parseHtmlMetadata(wpHtml, "https://blog.com").imageUrl).toBe("https://blog.com/uploads/cover.jpg");
+
+		const tileHtml = `
+			<html><head>
+				<meta name="msapplication-TileImage" content="https://site.com/tile.png" />
+			</head></html>
+		`;
+		expect(parseHtmlMetadata(tileHtml, "https://site.com").imageUrl).toBe("https://site.com/tile.png");
+	});
+
+	it("extracts embedded YouTube video thumbnail, video poster, and content images", () => {
+		const ytEmbedHtml = `
+			<html><body>
+				<h1>Research Project</h1>
+				<iframe width="800" height="450" src="https://www.youtube.com/embed/KyvutGnzLxI?autoplay=1"></iframe>
+				<img src="figures/method.png" />
+			</body></html>
+		`;
+		expect(parseHtmlMetadata(ytEmbedHtml, "https://research.site.com/project/").imageUrl).toBe(
+			"https://img.youtube.com/vi/KyvutGnzLxI/hqdefault.jpg",
+		);
+
+		const posterHtml = `
+			<html><body>
+				<video width="100%" poster="/media/hero.jpg" autoplay loop></video>
+			</body></html>
+		`;
+		expect(parseHtmlMetadata(posterHtml, "https://site.com").imageUrl).toBe("https://site.com/media/hero.jpg");
+
+		const contentHtml = `
+			<html><body>
+				<nav><img src="/logo.svg" width="120" /></nav>
+				<main>
+					<img src="/avatar.png" class="user-avatar" width="32" height="32" />
+					<img src="/assets/teaser.webp" width="800" />
+				</main>
+			</body></html>
+		`;
+		expect(parseHtmlMetadata(contentHtml, "https://portfolio.com").imageUrl).toBe("https://portfolio.com/assets/teaser.webp");
+	});
+
 	it("returns an empty object for HTML without metadata", () => {
 		expect(parseHtmlMetadata("<html><body>nothing</body></html>", "https://x.com")).toEqual({});
 	});
