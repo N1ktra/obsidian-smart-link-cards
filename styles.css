@@ -159,7 +159,10 @@ body {
 }
 
 /* Edit button (Live Preview only) */
-.slc-card-edit {
+.slc-card-edit,
+.slc-card .slc-card-edit,
+.slc-card .slc-card-edit.clickable-icon,
+body .slc-card .slc-card-edit.clickable-icon {
 	position: absolute;
 	top: 6px;
 	right: 6px;
@@ -170,8 +173,8 @@ body {
 	height: 24px;
 	padding: 4px;
 	border-radius: var(--radius-s, 4px);
-	background-color: var(--background-primary) !important;
-	color: var(--text-muted) !important;
+	background-color: var(--background-primary);
+	color: var(--text-muted);
 	border: 1px solid var(--background-modifier-border);
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 	opacity: 0;
@@ -181,20 +184,26 @@ body {
 }
 
 .slc-card-edit:hover,
-.slc-card-edit.clickable-icon:hover {
+.slc-card .slc-card-edit:hover,
+.slc-card-edit.clickable-icon:hover,
+.slc-card .slc-card-edit.clickable-icon:hover,
+body .slc-card .slc-card-edit.clickable-icon:hover {
 	/* Background remains 100% solid and same color (no gray change, no transparency) */
-	background-color: var(--background-primary) !important;
-	color: var(--text-normal) !important;
+	background-color: var(--background-primary);
+	color: var(--text-normal);
 	border-color: var(--text-muted);
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.22);
-	transform: none !important;
+	transform: none;
 }
 
-.slc-card-edit svg {
+.slc-card-edit svg,
+.slc-card .slc-card-edit svg,
+.slc-card .slc-card-edit.clickable-icon svg,
+body .slc-card .slc-card-edit svg {
 	width: 14px;
 	height: 14px;
-	stroke: currentColor !important;
-	fill: none !important;
+	stroke: currentColor;
+	fill: none;
 }
 
 .slc-card:hover .slc-card-edit {
@@ -292,66 +301,86 @@ body {
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line {
-	display: flex !important;
-	align-items: center;
-	padding-inline-start: 0 !important;
-	padding-left: 0 !important;
-	text-indent: 0 !important;
-	max-width: 100%;
-	overflow-x: clip;
+	white-space: pre;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-hmd-list-indent,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-indent,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-tab {
-	white-space: pre !important;
-	flex-shrink: 0;
+	white-space: pre;
+	vertical-align: middle;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-formatting-list,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-formatting-task,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line > .cm-list-bullet {
-	flex-shrink: 0;
+	vertical-align: middle;
 }
 
 /* Reading mode: cards inside list items */
+body .markdown-rendered li.slc-card-item,
+body .markdown-rendered li:has(> .slc-card),
 .markdown-rendered li.slc-card-item,
 .markdown-rendered li:has(> .slc-card) {
 	display: flex;
 	align-items: center;
-	justify-content: flex-start !important;
+	justify-content: flex-start;
 	max-width: 100%;
 }
 
+body .markdown-rendered li.slc-card-item .slc-card,
+body .markdown-rendered li:has(> .slc-card) .slc-card,
 .markdown-rendered li.slc-card-item .slc-card,
 .markdown-rendered li:has(> .slc-card) .slc-card {
 	max-width: 100%;
 	min-width: 0;
 	flex: 0 1 520px;
-	margin-left: 0 !important;
-	margin-right: auto !important;
+	margin-left: 0;
+	margin-right: auto;
 }
 
 /* While the card is shown in Live Preview, hide leftover external-link icon widgets on that line. */
+body .markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet),
+body .markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet),
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet),
 .markdown-source-view.mod-cm6 .cm-line:has(.slc-card) > :not(.slc-card, .cm-indent, .cm-tab, [class*="indent"], [class*="quote"], .cm-formatting-list, .cm-formatting-task, .cm-list-bullet) {
-	display: none !important;
+	display: none;
 }
 
 /* Hide theme-injected external link icons immediately adjacent to cards in reading mode */
+body .markdown-rendered .slc-card + svg.svg-icon,
+body .markdown-rendered .slc-card + .external-link-icon,
+body .markdown-rendered .slc-card ~ .external-link-icon:not(a),
+body .markdown-rendered .slc-card ~ svg.svg-icon:not(a),
+body .markdown-rendered li .slc-card + svg.svg-icon,
+body .markdown-rendered li .slc-card + .external-link-icon,
+body .markdown-rendered li .slc-card ~ .external-link-icon:not(a),
+body .markdown-rendered li .slc-card ~ svg.svg-icon:not(a),
+.markdown-rendered .slc-card + svg.svg-icon,
+.markdown-rendered .slc-card + .external-link-icon,
+.markdown-rendered .slc-card ~ .external-link-icon:not(a),
+.markdown-rendered .slc-card ~ svg.svg-icon:not(a),
 .slc-card + svg.svg-icon,
 .slc-card + .external-link-icon,
 .slc-card ~ .external-link-icon:not(a),
 .slc-card ~ svg.svg-icon:not(a) {
-	display: none !important;
+	display: none;
 }
 
+body .markdown-source-view.mod-cm6 .cm-line.slc-card-line::after,
+body .markdown-source-view.mod-cm6 .cm-line.slc-card-line::before,
+body .markdown-source-view.mod-cm6 .slc-card::after,
+body .markdown-source-view.mod-cm6 .slc-card::before,
+body .markdown-rendered .slc-card::after,
+body .markdown-rendered .slc-card::before,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line::after,
 .markdown-source-view.mod-cm6 .cm-line.slc-card-line::before,
+div.slc-card::after,
+div.slc-card::before,
 .slc-card::after,
 .slc-card::before {
-	display: none !important;
-	content: none !important;
+	display: none;
+	content: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -384,9 +413,13 @@ body {
 }
 
 /* Standalone pill in list items: keep bullet, pill and icon on one line and shrink earlier */
+body .markdown-source-view.mod-cm6 .cm-line.slc-list-line,
+body .markdown-rendered li.slc-list-item,
+body .markdown-rendered ul > li.slc-list-item,
+body .markdown-rendered ol > li.slc-list-item,
 .markdown-source-view.mod-cm6 .cm-line.slc-list-line,
 .markdown-rendered li.slc-list-item {
-	white-space: nowrap !important;
+	white-space: nowrap;
 }
 
 .markdown-source-view.mod-cm6 .cm-line.slc-list-line .slc-pill,
@@ -420,6 +453,16 @@ body {
 	text-decoration: underline;
 }
 
+.slc-pill-desc,
+.slc-pill .slc-pill-desc,
+.slc-pill:hover .slc-pill-desc,
+body .slc-pill .slc-pill-desc,
+body .slc-pill:hover .slc-pill-desc,
+.markdown-source-view .slc-pill .slc-pill-desc,
+.markdown-rendered .slc-pill .slc-pill-desc {
+	text-decoration: none;
+}
+
 .slc-pill-desc {
 	flex: 0 1 auto;
 	min-width: 0;
@@ -427,7 +470,6 @@ body {
 	font-size: 0.9em;
 	color: var(--text-muted);
 	opacity: 0.85;
-	text-decoration: none !important;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
