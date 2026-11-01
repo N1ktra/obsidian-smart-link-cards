@@ -68,11 +68,16 @@ function getMeaningfulSibling(node: Node | null, direction: "prev" | "next"): No
 	return current;
 }
 
-function isBlockBoundary(node: Node | null): boolean {
+function isBlockBoundary(node: Node | null, direction: "prev" | "next"): boolean {
 	if (node === null) return true;
 	if (isBr(node)) return true;
-	if (node.nodeType === Node.TEXT_NODE && (node.textContent ?? "").includes("\n")) {
-		return true;
+	if (node.nodeType === Node.TEXT_NODE) {
+		const text = node.textContent ?? "";
+		if (direction === "prev") {
+			return /\n[ \t]*$/.test(text);
+		} else {
+			return /^[ \t]*\n/.test(text);
+		}
 	}
 	if (node instanceof HTMLElement) {
 		if (node.classList.contains("slc-card") || node.querySelector(".slc-card")) {
@@ -91,7 +96,7 @@ export function isStandaloneAnchor(anchor: HTMLElement): boolean {
 
 	const prev = getMeaningfulSibling(anchor.previousSibling, "prev");
 	const next = getMeaningfulSibling(anchor.nextSibling, "next");
-	return isBlockBoundary(prev) && isBlockBoundary(next);
+	return isBlockBoundary(prev, "prev") && isBlockBoundary(next, "next");
 }
 
 /** If the anchor is the only text inside a list item, return the `<li>` element. */
@@ -179,7 +184,7 @@ export function createReadingModeProcessor(deps: RenderDeps): MarkdownPostProces
 				if (!looksBare) overrides.title = stripInlineMarkdown(text);
 			}
 
-			let mode: DisplayMode = (source?.mode === "block" || isStandaloneAnchor(anchor)) ? "block" : "inline";
+			let mode: DisplayMode = (source ? source.mode === "block" : isStandaloneAnchor(anchor)) ? "block" : "inline";
 			if (mode === "block" && !settings.enableBlockCards) mode = "inline";
 			if (mode === "inline" && !settings.enableInlinePills) continue;
 
