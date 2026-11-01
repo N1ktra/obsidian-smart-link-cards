@@ -318,20 +318,21 @@ body .slc-card .slc-card-edit svg {
 }
 
 /* Reading mode: cards inside list items */
+body .markdown-rendered .slc-card,
+.markdown-rendered .slc-card {
+	display: flex;
+}
+
 body .markdown-rendered li.slc-card-item,
-body .markdown-rendered li:has(> .slc-card),
-.markdown-rendered li.slc-card-item,
-.markdown-rendered li:has(> .slc-card) {
+.markdown-rendered li.slc-card-item {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
 	max-width: 100%;
 }
 
-body .markdown-rendered li.slc-card-item .slc-card,
-body .markdown-rendered li:has(> .slc-card) .slc-card,
-.markdown-rendered li.slc-card-item .slc-card,
-.markdown-rendered li:has(> .slc-card) .slc-card {
+body .markdown-rendered li .slc-card,
+.markdown-rendered li .slc-card {
 	max-width: 100%;
 	min-width: 0;
 	flex: 0 1 520px;
